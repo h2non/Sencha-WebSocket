@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Ext-websocket-event-Message'>/**
+</span> * Class implementing an abstraction of MessageEvent native Object. 
+ * 
+ * This class is used internally by the library.
+ * 
+ * Note the native Object can change depending of the user agent.
+ * 
+ * See &lt;http://www.w3.org/TR/2012/CR-websockets-20120920/#closeevent&gt;
+ * 
+ * @class Ext.websocket.event.Message
+ */
+Ext.define('Ext.websocket.event.Message', {
+    
+    config: {
+<span id='Ext-websocket-event-Message-cfg-data'>        /**
+</span>         * @cfg {Number} data
+         * It represents the WebSocket data emitted by the server
+         */
+        data: null,
+        
+<span id='Ext-websocket-event-Message-cfg-timestamp'>        /**
+</span>         * @cfg {Number} timestamp
+         * Event creation timestamp
+         */
+        timestamp: 0,
+        
+<span id='Ext-websocket-event-Message-cfg-WebSocket'>        /**
+</span>         * @cfg {Object} WebSocket
+         * The {@link Ext.websocket.WebSocket} instance
+         */
+        WebSocket: {},
+        
+<span id='Ext-websocket-event-Message-cfg-id'>        /**
+</span>         * @cfg {Number} id
+         * Event identifier
+         */
+        id: 0,
+        
+<span id='Ext-websocket-event-Message-cfg-event'>        /**
+</span>         * @cfg {Object} event
+         * Native MessageEvent user-agent Object
+         */
+        event: {}
+    },
+    
+<span id='Ext-websocket-event-Message-method-constructor'>    /**
+</span>     * Class constructor
+     * @param {Object} MessageEvent Object. Required
+     * @param {Object} {@link Ext.websocket.WebSocket}. Required
+     */
+    constructor: function (MessageEvent, WebSocket) {
+        
+        Ext.websocket.event.Message.eventId++;
+
+        this.initConfig({
+            data: MessageEvent.data,
+            WebSocket: WebSocket,
+            timestamp: MessageEvent.timestamp || new Date().getTime(),
+            event: MessageEvent,
+            id: Ext.websocket.event.Message.eventId
+        });
+        
+    },
+    
+    statics: {
+        
+<span id='Ext-websocket-event-Message-static-property-eventId'>        /**
+</span>         * CloseEvent message
+         * @static
+         */
+        eventId: 0
+    }
+    
+});</pre>
+</body>
+</html>

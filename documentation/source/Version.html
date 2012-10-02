@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Ext-websocket-Version'>/**
+</span> * Utility class to store information about versioning
+ * @class Ext.websocket.Version
+ * @singleton
+ */
+Ext.define('Ext.websocket.Version', {
+    
+<span id='Ext-websocket-Version-property-singleton'>    /**
+</span>     * @property {Boolean} singleton
+     * @singleton
+     * @private
+     */
+    singleton: true,
+
+<span id='Ext-websocket-Version-property-Ext.Version'>    /**
+</span>     * Sencha WebSocket library version
+     * See &lt;http://docs.sencha.com/ext-js/4-1/#!/api/Ext.Version&gt;
+     * @property {Object} Ext.Version
+     */
+    library: new Ext.Version('0.1.1beta'),
+
+<span id='Ext-websocket-Version-property-isExt4'>    /**
+</span>     * @property {Boolean} isExt4
+     * Store the current Sencha Framework is ExtJS 4.0.x
+     */
+    isExt4: (Ext.getVersion('extjs') !== undefined &amp;&amp; Ext.getVersion('extjs').getMinor() === 0),
+
+<span id='Ext-websocket-Version-property-isExt41'>    /**
+</span>     * @property {Boolean} isExt41
+     * Store the current Sencha Framework is ExtJS 4.1.x
+     */
+    isExt41: (Ext.getVersion('extjs') !== undefined &amp;&amp; Ext.getVersion('extjs').getMinor() === 1),
+
+<span id='Ext-websocket-Version-property-isTouch2'>    /**
+</span>     * @property {Boolean} isTouch2
+     * Store the current Sencha Framework is Touch 2.0.x
+     */
+    isTouch2: (Ext.getVersion('touch') !== undefined &amp;&amp; Ext.getVersion('touch').getMinor() === 0),
+
+<span id='Ext-websocket-Version-property-isTouch21'>    /**
+</span>     * @property {Boolean} isTouch21
+     * Store the current Sencha Framework is Touch 2.1.x
+     */
+    isTouch21: (Ext.getVersion('touch') !== undefined &amp;&amp; Ext.getVersion('touch').getMinor() === 1),
+    
+<span id='Ext-websocket-Version-property-isSupported'>    /**
+</span>     * @property {Boolean} isSupported
+     * Returns if the current Sencha framework core is supported
+     */
+    isSupported: (Ext.getVersion('core') !== undefined &amp;&amp; Ext.getVersion('extjs').getMajor() &gt;= 4) ? true : false
+    
+});</pre>
+</body>
+</html>

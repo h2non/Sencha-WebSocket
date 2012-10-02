@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sencha WebSocket Examples - Basic</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <!-- Sencha Touch 2.1.0 -->
+        <!--<script src="http://dev.sencha.com/deploy/sencha-touch-2.1.0-b3/sencha-touch-all.js"></script>-->
+        
+        <!-- Sencha Touch 2.0.1 -->
+        <!--<script src="http://dev.sencha.com/deploy/sencha-touch-2.0.1/sencha-touch-all.js"></script>-->
+        
+        <!-- Sencha ExtJS 4.0.7 -->
+        <script src="http://dev.sencha.com/deploy/ext-4.0.0/ext-all-debug.js"></script>
+        
+        <!-- Sencha ExtJS 4.1.0 -->
+        <!--<script src="http://dev.sencha.com/deploy/ext-4.1.0-gpl/ext-all-debug.js"></script>-->
+       
+        <!-- WebSocket library -->
+        <script src="../src/websocket/Loader.js"></script>
+
+        <script type="text/javascript">
+            
+            Ext.onReady(function () {
+                
+                // local socket example
+                var socket = Ext.websocket.WebSocket.create({
+                    url: 'ws://localhost:8080/', //'ws://localhost:8080/socket.io/1/websocket/',
+                    listeners: {
+                        open: function () {
+                            console.log('The socket is open!');
+                            socket.send({ sample: 'This is a sample data string' });                       
+                        },
+                        message: function (event) {
+                            document.write('Data received -> ' + event.getData() + '<br>');
+                        },
+                        close: function (event) {
+                            console.log('Socket closed: ' + event.getCode() + ' -> ' + event.getReason());
+                        }
+                    }
+                });
+                
+                // invalid websocket example
+                var socket2 = Ext.websocket.WebSocket.create({
+                    url: 'ws://google.es:80/',
+                    listeners: {
+                        open: function (event) {
+                            console.log('The socket is open!');
+                            event.getSocket().send({ sample: 'This is a sample data string' });
+                        },
+                        error: function () {
+                        },
+                        message: function (event) {
+                            document.write('Data received -> ' + event.getData() + '<br>');
+                        },
+                        close: function (event) {
+                            console.log(event);
+                        }
+                    }
+                });
+
+            });
+        </script>
+    </head>
+    <body>
+        <div>Sencha WebSocket library example</div>
+    </body>
+</html> 
+

@@ -15,7 +15,7 @@
   </script>
 </head>
 <body onload="prettyPrint(); highlight();">
-  <pre class="prettyprint lang-js"><span id='Ext-websocket-event-Open'>/**
+  <pre class="prettyprint lang-js"><span id='Ext-ux-websocket-event-Open'>/**
 </span> * Class implementing an abstraction of EventListener native Object. 
  * 
  * This class is used internally by the library.
@@ -24,58 +24,58 @@
  * 
  * Note: event under sofware designing, thinking for a future use
  * 
- * @class Ext.websocket.event.Open
+ * @class Ext.ux.websocket.event.Open
  */
-Ext.define('Ext.websocket.event.Open', {
+Ext.define('Ext.ux.websocket.event.Open', {
     
     config: {
         
-<span id='Ext-websocket-event-Open-cfg-timestamp'>        /**
+<span id='Ext-ux-websocket-event-Open-cfg-timestamp'>        /**
 </span>         * @cfg {Number} timestamp
          * Event creation timestamp
          */
         timestamp: 0,
         
-<span id='Ext-websocket-event-Open-cfg-WebSocket'>        /**
+<span id='Ext-ux-websocket-event-Open-cfg-WebSocket'>        /**
 </span>         * @cfg {Object} WebSocket
-         * The {@link Ext.websocket.WebSocket} instance
+         * The {@link Ext.ux.websocket.WebSocket} instance
          */
         WebSocket: {},
         
-<span id='Ext-websocket-event-Open-cfg-id'>        /**
+<span id='Ext-ux-websocket-event-Open-cfg-id'>        /**
 </span>         * @cfg {Number} id
          * Event identifier
          */
         id: 0,
         
-<span id='Ext-websocket-event-Open-cfg-event'>        /**
+<span id='Ext-ux-websocket-event-Open-cfg-event'>        /**
 </span>         * @cfg {Object} event
          * Native OpenEvent user-agent Object
          */
         event: {}
     },
     
-<span id='Ext-websocket-event-Open-method-constructor'>    /**
+<span id='Ext-ux-websocket-event-Open-method-constructor'>    /**
 </span>     * Class constructor
      * @param {Object} EventListener Object. Required
-     * @param {Object} {@link Ext.websocket.WebSocket}. Required
+     * @param {Object} {@link Ext.ux.websocket.WebSocket}. Required
      */
     constructor: function (OpenEvent, WebSocket) {
         
-        Ext.websocket.event.Open.eventId++;
+        Ext.ux.websocket.event.Open.eventId++;
 
         this.initConfig({
             WebSocket: WebSocket,
             timestamp: OpenEvent.timestamp || new Date().getTime(),
             event: OpenEvent,
-            id: Ext.websocket.event.Open.eventId
+            id: Ext.ux.websocket.event.Open.eventId
         });
         
     },
     
     statics: {
         
-<span id='Ext-websocket-event-Open-static-property-eventId'>        /**
+<span id='Ext-ux-websocket-event-Open-static-property-eventId'>        /**
 </span>         * ErrorEvent counter identifier
          * @static
          */

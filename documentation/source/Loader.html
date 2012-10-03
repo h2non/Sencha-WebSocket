@@ -15,31 +15,32 @@
   </script>
 </head>
 <body onload="prettyPrint(); highlight();">
-  <pre class="prettyprint lang-js"><span id='Ext-websocket-Loader'>/**
+  <pre class="prettyprint lang-js"><span id='Ext-ux-websocket-Loader'>/**
 </span> * Library load throught Ext.Loader.
  * 
  * Note you must customize the library path.
  * 
  * Documentation: TODO
  * 
- * @class Ext.websocket.Loader
+ * @class Ext.ux.websocket.Loader
  */
 
 Ext.Loader.setConfig({
     enabled: true,
     paths: {
-        'Ext.websocket': '../src/websocket'
+        'Ext.ux.websocket': '../src/ux/websocket'
     }
 });
 
 Ext.require([
-    'Ext.websocket.Version',
-    'Ext.websocket.event.Message',
-    'Ext.websocket.event.Close',
-    'Ext.websocket.event.Error',
-    'Ext.websocket.event.Open',
-    'Ext.websocket.Packet',
-    'Ext.websocket.WebSocket'
+    'Ext.ux.websocket.Version',
+    'Ext.ux.websocket.event.Message',
+    'Ext.ux.websocket.event.Close',
+    'Ext.ux.websocket.event.Error',
+    'Ext.ux.websocket.event.Open',
+    'Ext.ux.websocket.Packet',
+    'Ext.ux.websocket.Manager',
+    'Ext.ux.websocket.WebSocket'
 ]);
 </pre>
 </body>

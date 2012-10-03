@@ -1,9 +1,9 @@
 /**
  * Utility class to store information about versioning
- * @class Ext.websocket.Version
+ * @class Ext.ux.websocket.Version
  * @singleton
  */
-Ext.define('Ext.websocket.Version', {
+Ext.define('Ext.ux.websocket.Version', {
     
     /**
      * @property {Boolean} singleton

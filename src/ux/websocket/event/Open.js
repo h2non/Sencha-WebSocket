@@ -7,9 +7,9 @@
  * 
  * Note: event under sofware designing, thinking for a future use
  * 
- * @class Ext.websocket.event.Open
+ * @class Ext.ux.websocket.event.Open
  */
-Ext.define('Ext.websocket.event.Open', {
+Ext.define('Ext.ux.websocket.event.Open', {
     
     config: {
         
@@ -21,7 +21,7 @@ Ext.define('Ext.websocket.event.Open', {
         
         /**
          * @cfg {Object} WebSocket
-         * The {@link Ext.websocket.WebSocket} instance
+         * The {@link Ext.ux.websocket.WebSocket} instance
          */
         WebSocket: {},
         
@@ -41,17 +41,17 @@ Ext.define('Ext.websocket.event.Open', {
     /**
      * Class constructor
      * @param {Object} EventListener Object. Required
-     * @param {Object} {@link Ext.websocket.WebSocket}. Required
+     * @param {Object} {@link Ext.ux.websocket.WebSocket}. Required
      */
     constructor: function (OpenEvent, WebSocket) {
         
-        Ext.websocket.event.Open.eventId++;
+        Ext.ux.websocket.event.Open.eventId++;
 
         this.initConfig({
             WebSocket: WebSocket,
             timestamp: OpenEvent.timestamp || new Date().getTime(),
             event: OpenEvent,
-            id: Ext.websocket.event.Open.eventId
+            id: Ext.ux.websocket.event.Open.eventId
         });
         
     },

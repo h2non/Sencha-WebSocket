@@ -15,30 +15,30 @@
   </script>
 </head>
 <body onload="prettyPrint(); highlight();">
-  <pre class="prettyprint lang-js"><span id='Ext-websocket-packet-Event'>/** 
+  <pre class="prettyprint lang-js"><span id='Ext-ux-websocket-packet-Event'>/** 
 </span> * TODO
  *
- * @class Ext.websocket.packet.Event
+ * @class Ext.ux.websocket.packet.Event
  */
-Ext.define('Ext.websocket.packet.Event', {
+Ext.define('Ext.ux.websocket.packet.Event', {
     
-<span id='Ext-websocket-packet-Event-property-require'>    require: [
-</span>        'Ext.websocket.Version'
+<span id='Ext-ux-websocket-packet-Event-property-require'>    require: [
+</span>        'Ext.ux.websocket.Version'
     ],
     
     config: {
         
-<span id='Ext-websocket-packet-Event-cfg-id'>        id: 0,
+<span id='Ext-ux-websocket-packet-Event-cfg-id'>        id: 0,
 </span>        
-<span id='Ext-websocket-packet-Event-cfg-timestamp'>        timestamp: null,
+<span id='Ext-ux-websocket-packet-Event-cfg-timestamp'>        timestamp: null,
 </span>        
-<span id='Ext-websocket-packet-Event-cfg-clientVersion'>        clientVersion: 'Sencha WebSocket ' + Ext.websocket.Version.library,
+<span id='Ext-ux-websocket-packet-Event-cfg-clientVersion'>        clientVersion: 'Sencha WebSocket ' + Ext.ux.websocket.Version.library,
 </span>        
-<span id='Ext-websocket-packet-Event-cfg-name'>        name: 'open'
+<span id='Ext-ux-websocket-packet-Event-cfg-name'>        name: 'event'
 </span>        
     },
     
-<span id='Ext-websocket-packet-Event-method-constructor'>    // todo
+<span id='Ext-ux-websocket-packet-Event-method-constructor'>    // todo
 </span>    constructor: function (config) {
         
         this.initConfig(config);

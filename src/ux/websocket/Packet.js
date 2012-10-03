@@ -1,14 +1,14 @@
 /**
  * Utility class to build a Sencha WebSocket JSON-based packets
- * @class Ext.websocket.Packet
+ * @class Ext.ux.websocket.Packet
  * TODO
  */
-Ext.define('Ext.websocket.Packet', {
+Ext.define('Ext.ux.websocket.Packet', {
     
     require: [
-        'Ext.websocket.packet.Data',
-        'Ext.websocket.packet.Error',
-        'Ext.websocket.packet.Event'
+        'Ext.ux.websocket.packet.Data',
+        'Ext.ux.websocket.packet.Error',
+        'Ext.ux.websocket.packet.Event'
     ],
     
     // todo

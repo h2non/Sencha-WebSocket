@@ -1,12 +1,12 @@
 /** 
  * TODO
  *
- * @class Ext.websocket.packet.Event
+ * @class Ext.ux.websocket.packet.Event
  */
-Ext.define('Ext.websocket.packet.Event', {
+Ext.define('Ext.ux.websocket.packet.Event', {
     
     require: [
-        'Ext.websocket.Version'
+        'Ext.ux.websocket.Version'
     ],
     
     config: {
@@ -15,9 +15,9 @@ Ext.define('Ext.websocket.packet.Event', {
         
         timestamp: null,
         
-        clientVersion: 'Sencha WebSocket ' + Ext.websocket.Version.library,
+        clientVersion: 'Sencha WebSocket ' + Ext.ux.websocket.Version.library,
         
-        name: 'open'
+        name: 'event'
         
     },
     

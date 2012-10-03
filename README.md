@@ -3,7 +3,7 @@
 
 # Sencha WebSocket 
  
-Sencha WebSocket is a WebSocket library for Sencha JavaScript frameworks.
+A WebSocket client extension library for Sencha JavaScript frameworks.
 It provides a lot of funcionalities, extensible event-handling, full integration with Sencha core framework, abstraction from JavaScript native API and more...
 
 # Author

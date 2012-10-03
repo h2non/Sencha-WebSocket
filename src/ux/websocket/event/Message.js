@@ -7,9 +7,9 @@
  * 
  * See <http://www.w3.org/TR/2012/CR-websockets-20120920/#closeevent>
  * 
- * @class Ext.websocket.event.Message
+ * @class Ext.ux.websocket.event.Message
  */
-Ext.define('Ext.websocket.event.Message', {
+Ext.define('Ext.ux.websocket.event.Message', {
     
     config: {
         /**
@@ -26,7 +26,7 @@ Ext.define('Ext.websocket.event.Message', {
         
         /**
          * @cfg {Object} WebSocket
-         * The {@link Ext.websocket.WebSocket} instance
+         * The {@link Ext.ux.websocket.WebSocket} instance
          */
         WebSocket: {},
         
@@ -46,18 +46,18 @@ Ext.define('Ext.websocket.event.Message', {
     /**
      * Class constructor
      * @param {Object} MessageEvent Object. Required
-     * @param {Object} {@link Ext.websocket.WebSocket}. Required
+     * @param {Object} {@link Ext.ux.websocket.WebSocket}. Required
      */
     constructor: function (MessageEvent, WebSocket) {
         
-        Ext.websocket.event.Message.eventId++;
+        Ext.ux.websocket.event.Message.eventId++;
 
         this.initConfig({
             data: MessageEvent.data,
             WebSocket: WebSocket,
             timestamp: MessageEvent.timestamp || new Date().getTime(),
             event: MessageEvent,
-            id: Ext.websocket.event.Message.eventId
+            id: Ext.ux.websocket.event.Message.eventId
         });
         
     },

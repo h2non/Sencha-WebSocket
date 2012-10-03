@@ -1,5 +1,5 @@
 /** 
- * @class Ext.websocket.WebSocket
+ * @class Ext.ux.websocket.WebSocket
  * @mixin Ext.mixin.Observable
  * @author Tomas Aparicio <tomas@rijndael-project.com>
  * 
@@ -128,7 +128,7 @@
  * 
  */
 
-Ext.define('Ext.websocket.WebSocket', {
+Ext.define('Ext.ux.websocket.WebSocket', {
     
     /**
      * @property {String} alias
@@ -254,7 +254,7 @@ Ext.define('Ext.websocket.WebSocket', {
          * @cfg {Boolean} secure
          * Secure WebSocket (SSL)
          */
-        secure: false,
+        secure: Ext.isSecure,
         
         /**
          * @cfg {Boolean} debug
@@ -282,18 +282,16 @@ Ext.define('Ext.websocket.WebSocket', {
         url: null,
         
         /**
-         * @cfg {Object} host
-         * Schema based server host URI
-         * TODO documentation
+         * @cfg {String} protocol
+         * The WebSocket protocol 
+         */
+        protocol: (Ext.isSecure) ? 'wss' : 'ws',
+        
+        /**
+         * @cfg {String} host
+         * Server hostname (e.g localhost)
          */
         host: null,
-
-        /**
-         * @cfg {String} callbackKey
-         * Some requests (like JsonP) want to send an additional key that contains
-         * the name of the callback function.
-         */
-        callbackKey: null,
 
         /**
          * @cfg {Object} callback
@@ -369,7 +367,7 @@ Ext.define('Ext.websocket.WebSocket', {
             this.mixins.observable.constructor.call(this, this.config);
         }
         
-        if (Ext.websocket.WebSocket.Socket !== false) {
+        if (Ext.ux.websocket.WebSocket.Socket !== false) {
             this.init();
         } else {
             if (this.config.debug)
@@ -392,7 +390,7 @@ Ext.define('Ext.websocket.WebSocket', {
             
             var self = this;
             // new WebSocket instance
-            this.ws = new Ext.websocket.WebSocket.Socket(this.config.url);   
+            this.ws = new Ext.ux.websocket.WebSocket.Socket(this.config.url);   
             // apply events 
             this.ws = Ext.apply(this.ws, {
                 onopen: function () {    
@@ -409,8 +407,8 @@ Ext.define('Ext.websocket.WebSocket', {
                 }
             });
             
-            Ext.websocket.WebSocket.socketId++;
-            this.socketId = Ext.websocket.WebSocket.socketId;
+            Ext.ux.websocket.WebSocket.socketId++;
+            this.socketId = Ext.ux.websocket.WebSocket.socketId;
             
             //this.status = this.ws.readyStatus;
             
@@ -620,15 +618,17 @@ Ext.define('Ext.websocket.WebSocket', {
         /**
          * Sencha WebSocket library version
          * See <http://docs.sencha.com/ext-js/4-1/#!/api/Ext.Version>
-         * @return {Object} Ext.Version
+         * @property {Ext.Version} libVersion
          * @static
+         * @readonly
          */
-        libraryVersion: Ext.websocket.Version.library,
+        libVersion: Ext.websocket.Version.library,
         
         /**
          * @property {Boolean} has
          * Return if the current browser supports WebSocket  
          * @static
+         * @readonly
          */
         has: ('WebSocket' in window) ? true : false,
         
@@ -636,7 +636,7 @@ Ext.define('Ext.websocket.WebSocket', {
          * @property {WebSocket} WebSocket Object
          * WebSocket native JavaScript Object
          * @static
-         * @private
+         * @readonly
          */
         Socket: ('WebSocket' in window) ? WebSocket : (('MozWebSocket' in window) ? MozWebSocket : false),
     
@@ -646,19 +646,19 @@ Ext.define('Ext.websocket.WebSocket', {
     
         /**
          * Creates new Ext.websocket instance with the given config
-         * @param {Object} Ext.websocket.WebSocket config Object
-         * @return {Object} Ext.websocket.WebSocket
+         * @param {Object} Ext.ux.websocket.WebSocket config Object
+         * @return {Object} Ext.ux.websocket.WebSocket
          * @static
          */
         create: function (config) {
-            return Ext.create('Ext.websocket.WebSocket', config);
+            return Ext.create('Ext.ux.websocket.WebSocket', config);
         },
         
         /**
          * Request identifier
          * @property {Number} socketId
          * @static
-         * @private
+         * @readonly
          */
         socketId: 0,
         

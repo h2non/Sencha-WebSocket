@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Ext-ux-websocket-SocketIO'>/**
+</span> * A wrapper class for Socket.IO client library. Used internally.
+ * 
+ * You must add the Socket.IO library in your HTML file: 
+ * 
+ * &lt;script type=&quot;text/javascript&quot; src=&quot;lib/socket.io.js&quot;&gt;&lt;/script&gt;
+ * 
+ * See &lt;http://socket.io/#how-to-use&gt;
+ * 
+ * TODO
+ * 
+ * @class Ext.ux.websocket.SocketIO
+ */
+Ext.define('Ext.ux.websocket.SocketIO' , {
+        
+<span id='Ext-ux-websocket-SocketIO-property-WebSocket'>    /**
+</span>     * {@link Ext.us.websocket.WebSocket} instance
+     * @property {Ext.us.websocket.WebSocket} WebSocket
+     * @private
+     */ 
+    WebSocket: null,
+    
+<span id='Ext-ux-websocket-SocketIO-property-SocketIO'>    /**
+</span>     * Socket.IO client library instance
+     * @property {Object} SocketIO
+     * @private
+     */
+    socketIO: null,
+    
+<span id='Ext-ux-websocket-SocketIO-method-constructor'>    /**
+</span>     * Class contructor
+     * @param {Ext.ux.websocket.WebSocket} WebSocket instance. Required
+     * @param {Object} config. Required
+     */
+    constructor: function(WebSocket){
+
+        try {
+            
+            this.WebSocket = WebSocket;
+            
+            Ext.ux.websocket.SocketIO.superclass.constructor.call(this);
+
+            this.socketIO = new io.Socket(WebSocket.getUrl(), WebSocket.getOptions() );
+
+            var self = this;
+            
+            this.socketIO.on('connect', function(){
+                self.connect();
+            });
+            this.socketIO.on('message', function(data){
+                self.message();
+            });
+            this.socketIO.on('close', function(){
+                that.onClose();
+            });
+            this.socketIO.on('disconnect', function(){
+                that.onDisconnect();
+            });
+            
+        } catch (e) {
+            throw new Error (e);
+        }
+    },
+
+<span id='Ext-ux-websocket-SocketIO-method-connect'>    /**
+</span>     * @private
+     */
+    connect: function() {
+        this.socketIO.connect();
+    },
+
+<span id='Ext-ux-websocket-SocketIO-method-disconnect'>    /**
+</span>     * @private
+     */
+    disconnect: function() {
+        this.socketIO.disconnect();
+    },
+
+<span id='Ext-ux-websocket-SocketIO-method-send'>    /**
+</span>     * @private
+     */
+    send: function(message) {
+        this.socketIO.send(message);
+    },
+
+<span id='Ext-ux-websocket-SocketIO-method-onConnect'>    /**
+</span>     * @private
+     */
+    onConnect: function() {
+        this.fireEvent('connect');
+    },
+
+<span id='Ext-ux-websocket-SocketIO-method-onDisconnect'>    /**
+</span>     * @private
+     */
+    onDisconnect: function() {
+        this.fireEvent('disconnect');
+    },
+
+<span id='Ext-ux-websocket-SocketIO-method-onClose'>    /**
+</span>     * @private
+     */
+    onClose: function() {
+        this.fireEvent('close');
+    },
+    
+<span id='Ext-ux-websocket-SocketIO-method-onMessage'>    /**
+</span>     * @private
+     */
+    onMessage: function(message) {
+        this.fireEvent('message', message);
+    },
+    
+<span id='Ext-ux-websocket-SocketIO-method-getSocketIO'>    /**
+</span>     * Returns the Socket.IO instance
+     * @return {Object} Socket.IO instance
+     */
+    getSocketIO: function () {
+        return this.socketIO;
+    },
+    
+    statics: {
+        
+<span id='Ext-ux-websocket-SocketIO-property-has'>        has: ('io' in window &amp;&amp; 'Socket' in window.io) ? true : false
+</span>    
+    }
+    
+});</pre>
+</body>
+</html>

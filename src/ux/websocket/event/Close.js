@@ -7,9 +7,9 @@
  * 
  * See <http://www.w3.org/TR/2012/CR-websockets-20120920/#closeevent>
  * 
- * @class Ext.websocket.event.Close
+ * @class Ext.ux.websocket.event.Close
  */
-Ext.define('Ext.websocket.event.Close', {
+Ext.define('Ext.ux.websocket.event.Close', {
     
     config: {
         
@@ -39,7 +39,7 @@ Ext.define('Ext.websocket.event.Close', {
         
         /**
          * @cfg {Object} WebSocket
-         * The {@link Ext.websocket.WebSocket} instance
+         * The {@link Ext.ux.websocket.WebSocket} instance
          */
         WebSocket: {},
         
@@ -59,11 +59,11 @@ Ext.define('Ext.websocket.event.Close', {
     /**
      * Class constructor
      * @param {Object} CloseEvent Object. Required
-     * @param {Object} {@link Ext.websocket.WebSocket}. Required
+     * @param {Object} {@link Ext.ux.websocket.WebSocket}. Required
      */
     constructor: function (CloseEvent, WebSocket) {
         
-        Ext.websocket.event.Close.eventId++;
+        Ext.ux.websocket.event.Close.eventId++;
 
         this.initConfig({
             code: CloseEvent.code,
@@ -72,19 +72,19 @@ Ext.define('Ext.websocket.event.Close', {
             WebSocket: WebSocket,
             timestamp: CloseEvent.timestamp || new Date().getTime(),
             event: CloseEvent,
-            id: Ext.websocket.event.Close.eventId
+            id: Ext.ux.websocket.event.Close.eventId
         });
         
     },
     
     /**
      * Returns the code state standard string-mode
-     * See {@link Ext.websocket.event.Close#closeCodes}
+     * See {@link Ext.ux.websocket.event.Close#closeCodes}
      * See <https://developer.mozilla.org/en-US/docs/WebSockets/WebSockets_reference/CloseEvent#Status_codes>
      * @return {String}
      */
     getCodeString: function () {
-        var state = Ext.websocket.event.Close.closeCodes[this.getCode()];
+        var state = Ext.ux.websocket.event.Close.closeCodes[this.getCode()];
         if (state === undefined)
             return 'UNKNOWN';
         else
@@ -93,13 +93,13 @@ Ext.define('Ext.websocket.event.Close', {
     
     /**
      * Returns the text message description about the error
-     * See {@link Ext.websocket.event.Close#closeCodes}
+     * See {@link Ext.ux.websocket.event.Close#closeCodes}
      * See <https://developer.mozilla.org/en-US/docs/WebSockets/WebSockets_reference/CloseEvent#Status_codes>
      * TODO: detect state code
      * @return {String}
      */
     getStateMessage: function () {
-        var state = Ext.websocket.event.Close.stateMessage[this.getCode()];
+        var state = Ext.ux.websocket.event.Close.stateMessage[this.getCode()];
         if (state === undefined)
             return 'Unknown state code "'+ this.getCode() +'". Probably the code is a reserved range or private server range';
         else

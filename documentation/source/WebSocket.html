@@ -15,8 +15,8 @@
   </script>
 </head>
 <body onload="prettyPrint(); highlight();">
-  <pre class="prettyprint lang-js"><span id='Ext-websocket-WebSocket'>/** 
-</span> * @class Ext.websocket.WebSocket
+  <pre class="prettyprint lang-js"><span id='Ext-ux-websocket-WebSocket'>/** 
+</span> * @class Ext.ux.websocket.WebSocket
  * @mixin Ext.mixin.Observable
  * @author Tomas Aparicio &lt;tomas@rijndael-project.com&gt;
  * 
@@ -145,16 +145,16 @@
  * 
  */
 
-Ext.define('Ext.websocket.WebSocket', {
+Ext.define('Ext.ux.websocket.WebSocket', {
     
-<span id='Ext-websocket-WebSocket-property-alias'>    /**
+<span id='Ext-ux-websocket-WebSocket-property-alias'>    /**
 </span>     * @property {String} alias
      * Class alias
      * @private
      */
     alias: 'websocket',
     
-<span id='Ext-websocket-WebSocket-property-require'>    /**
+<span id='Ext-ux-websocket-WebSocket-property-require'>    /**
 </span>     * Require aditional classes
      * @property {Array} require
      * @private
@@ -166,7 +166,7 @@ Ext.define('Ext.websocket.WebSocket', {
         'Ext.websocket.Packet'
     ],
     
-<span id='Ext-websocket-WebSocket-property-mixins'>    /**
+<span id='Ext-ux-websocket-WebSocket-property-mixins'>    /**
 </span>     * Support for events handling
      * @mixin Ext.util.Observable
      * @private
@@ -177,47 +177,47 @@ Ext.define('Ext.websocket.WebSocket', {
     
     extend: (Ext.websocket.Version.isExt4) ? 'Ext.util.Observable' : null,
     
-<span id='Ext-websocket-WebSocket-property-WebSocket'>    /**
+<span id='Ext-ux-websocket-WebSocket-property-WebSocket'>    /**
 </span>     * @property {WebSocket} WebSocket 
      * The WebSocket instance
      * @private
      */ 
     ws: null,
     
-<span id='Ext-websocket-WebSocket-property-socketId'>    /**
+<span id='Ext-ux-websocket-WebSocket-property-socketId'>    /**
 </span>     * @property {Number} socketId
      * The current socket counter ID
      */
     socketId: 0,
     
-<span id='Ext-websocket-WebSocket-property-sendPacketId'>    /**
+<span id='Ext-ux-websocket-WebSocket-property-sendPacketId'>    /**
 </span>     * Counter ID for the sended packets 
      * @property {Number} sendPacketId
      */
     sendPacketId: 0,
     
-<span id='Ext-websocket-WebSocket-property-receivedPacketId'>    /**
+<span id='Ext-ux-websocket-WebSocket-property-receivedPacketId'>    /**
 </span>     * Counter ID for the received packets 
      * @property {Number} receivedPacketId
      * @private
      */
     receivedPacketId: 0,
     
-<span id='Ext-websocket-WebSocket-property-status'>    /**
+<span id='Ext-ux-websocket-WebSocket-property-status'>    /**
 </span>     * WebSocket connection code status
      * @property {Number} status
      * @private
      */
     status: 0,
     
-<span id='Ext-websocket-WebSocket-property-debug'>    /**
+<span id='Ext-ux-websocket-WebSocket-property-debug'>    /**
 </span>     * Enable verbose mode, must be disabled on production environment
      * @property {Boolean} debug 
      * @private
      */
     debug: false,
     
-<span id='Ext-websocket-WebSocket-property-closeEvent'>    /**
+<span id='Ext-ux-websocket-WebSocket-property-closeEvent'>    /**
 </span>     * Store the last close event Object. See {@link Ext.websocket.event.Close}
      * See &lt;http://www.w3.org/TR/2012/CR-websockets-20120920/#event-definitions&gt;
      * @property {Object} closeEvent
@@ -225,7 +225,7 @@ Ext.define('Ext.websocket.WebSocket', {
      */
     closeEvent: null,
     
-<span id='Ext-websocket-WebSocket-property-messageEvent'>    /**
+<span id='Ext-ux-websocket-WebSocket-property-messageEvent'>    /**
 </span>     * Store the last message event Object. See {@link Ext.websocket.event.Message}
      * See &lt;http://www.w3.org/TR/2012/CR-websockets-20120920/#event-definitions&gt;
      * @property {Object} messageEvent
@@ -233,7 +233,7 @@ Ext.define('Ext.websocket.WebSocket', {
      */
     messageEvent: null,
     
-<span id='Ext-websocket-WebSocket-property-errorEvent'>    /**
+<span id='Ext-ux-websocket-WebSocket-property-errorEvent'>    /**
 </span>     * Store the last error event Object. See {@link Ext.websocket.event.Error}
      * See &lt;http://www.w3.org/TR/2012/CR-websockets-20120920/#event-definitions&gt;
      * @property {Object} errorEvent
@@ -241,7 +241,7 @@ Ext.define('Ext.websocket.WebSocket', {
      */
     errorEvent: null,
     
-<span id='Ext-websocket-WebSocket-property-openEvent'>    /**
+<span id='Ext-ux-websocket-WebSocket-property-openEvent'>    /**
 </span>     * Store the last open event Object. See {@link Ext.websocket.event.Open}
      * See &lt;http://www.w3.org/TR/2012/CR-websockets-20120920/#event-definitions&gt;
      * @property {Object} openEvent
@@ -249,113 +249,111 @@ Ext.define('Ext.websocket.WebSocket', {
      */
     openEvent: null,
     
-<span id='Ext-websocket-WebSocket-property-lastError'>    // todo
+<span id='Ext-ux-websocket-WebSocket-property-lastError'>    // todo
 </span>    lastError: null,
-<span id='Ext-websocket-WebSocket-property-connectionLost'>    connectionLost: false,
-</span><span id='Ext-websocket-WebSocket-property-connectionClosed'>    connectionClosed: false,
-</span><span id='Ext-websocket-WebSocket-property-clientConnectionClosed'>    clientConnectionClosed: false,
+<span id='Ext-ux-websocket-WebSocket-property-connectionLost'>    connectionLost: false,
+</span><span id='Ext-ux-websocket-WebSocket-property-connectionClosed'>    connectionClosed: false,
+</span><span id='Ext-ux-websocket-WebSocket-property-clientConnectionClosed'>    clientConnectionClosed: false,
 </span>    
-<span id='Ext-websocket-WebSocket-property-Default'>    /**
+<span id='Ext-ux-websocket-WebSocket-property-Default'>    /**
 </span>     * @property {Object} Default class config
      * @private
      */
     config: {
         
-<span id='Ext-websocket-WebSocket-cfg-socketIo'>        /**
+<span id='Ext-ux-websocket-WebSocket-cfg-socketIo'>        /**
 </span>         * @cfg {Boolean} socketIo
          * Is a socket.io server
          */
         socketIo: false,
         
-<span id='Ext-websocket-WebSocket-cfg-secure'>        /**
+<span id='Ext-ux-websocket-WebSocket-cfg-secure'>        /**
 </span>         * @cfg {Boolean} secure
          * Secure WebSocket (SSL)
          */
-        secure: false,
+        secure: Ext.isSecure,
         
-<span id='Ext-websocket-WebSocket-cfg-debug'>        /**
+<span id='Ext-ux-websocket-WebSocket-cfg-debug'>        /**
 </span>         * @cfg {Boolean} debug
          * Enables the console debbuging
          * See {@link Ext.websocket#debug}
          */
         debug: false,
         
-<span id='Ext-websocket-WebSocket-cfg-type'>        /**
+<span id='Ext-ux-websocket-WebSocket-cfg-type'>        /**
 </span>         * @cfg {String} type
          * The type of WebSocket instance. Possible values: 'server' or 'client'.
          */
         type: 'server',
 
-<span id='Ext-websocket-WebSocket-cfg-params'>        /**
+<span id='Ext-ux-websocket-WebSocket-cfg-params'>        /**
 </span>         * @cfg {Object} params
          * HTTP request params. The Proxy and its Writer have access to and can modify this object.
          */
         params: null,
 
-<span id='Ext-websocket-WebSocket-cfg-url'>        /**
+<span id='Ext-ux-websocket-WebSocket-cfg-url'>        /**
 </span>         * @cfg {String} url
          * The url to access on this Request.
          */
         url: null,
         
-<span id='Ext-websocket-WebSocket-cfg-host'>        /**
-</span>         * @cfg {Object} host
-         * Schema based server host URI
-         * TODO documentation
+<span id='Ext-ux-websocket-WebSocket-cfg-protocol'>        /**
+</span>         * @cfg {String} protocol
+         * The WebSocket protocol 
+         */
+        protocol: (Ext.isSecure) ? 'wss' : 'ws',
+        
+<span id='Ext-ux-websocket-WebSocket-cfg-host'>        /**
+</span>         * @cfg {String} host
+         * Server hostname (e.g localhost)
          */
         host: null,
 
-<span id='Ext-websocket-WebSocket-cfg-callbackKey'>        /**
-</span>         * @cfg {String} callbackKey
-         * Some requests (like JsonP) want to send an additional key that contains
-         * the name of the callback function.
-         */
-        callbackKey: null,
-
-<span id='Ext-websocket-WebSocket-cfg-callback'>        /**
+<span id='Ext-ux-websocket-WebSocket-cfg-callback'>        /**
 </span>         * @cfg {Object} callback
          * Default callback function
          */
         callback: null,
 
-<span id='Ext-websocket-WebSocket-cfg-timeout'>        /**
+<span id='Ext-ux-websocket-WebSocket-cfg-timeout'>        /**
 </span>         * @cfg {Number} timeout
          * Socket maximum timeout in miliseconds
          */
         timeout: 15000,
         
-<span id='Ext-websocket-WebSocket-cfg-listeners'>        /**
+<span id='Ext-ux-websocket-WebSocket-cfg-listeners'>        /**
 </span>         * @cfg {Object} listeners
          * Event listeners config Object
          */
         listeners: {}
     },
   
-<span id='Ext-websocket-WebSocket-event-message'>   /**
+<span id='Ext-ux-websocket-WebSocket-event-message'>   /**
 </span>    * @event message
     * Fires each time a message is received.
     * @param {Ext.websocket.event.Message} 
     */
   
-<span id='Ext-websocket-WebSocket-event-close'>   /**
+<span id='Ext-ux-websocket-WebSocket-event-close'>   /**
 </span>    * @event close
     * Fires after the socket was closed succesfully.
     * @param {Ext.websocket.event.Close} 
     */
   
-<span id='Ext-websocket-WebSocket-event-open'>   /**
+<span id='Ext-ux-websocket-WebSocket-event-open'>   /**
 </span>    * @event open
     * Fires after the socket connection was created succesfully.
     * @param {Ext.websocket.event.Open} 
     */
    
-<span id='Ext-websocket-WebSocket-event-error'>   /**
+<span id='Ext-ux-websocket-WebSocket-event-error'>   /**
 </span>    * @event error
     * Fires after a socket error success.
     * @param {Ext.websocket.event.Error} 
     */
     
-<span id='Ext-websocket-WebSocket-method-constructor'>    /**
+<span id='Ext-ux-websocket-WebSocket-method-constructor'>    /**
 </span>     * Creates the WebSocket object.
      * @param {Object} [config] Config object.
      */
@@ -386,7 +384,7 @@ Ext.define('Ext.websocket.WebSocket', {
             this.mixins.observable.constructor.call(this, this.config);
         }
         
-        if (Ext.websocket.WebSocket.Socket !== false) {
+        if (Ext.ux.websocket.WebSocket.Socket !== false) {
             this.init();
         } else {
             if (this.config.debug)
@@ -396,7 +394,7 @@ Ext.define('Ext.websocket.WebSocket', {
         } 
     },
         
-<span id='Ext-websocket-WebSocket-method-init'>    /**
+<span id='Ext-ux-websocket-WebSocket-method-init'>    /**
 </span>     * Creates a new WebSocket instance
      * @private
      */
@@ -409,7 +407,7 @@ Ext.define('Ext.websocket.WebSocket', {
             
             var self = this;
             // new WebSocket instance
-            this.ws = new Ext.websocket.WebSocket.Socket(this.config.url);   
+            this.ws = new Ext.ux.websocket.WebSocket.Socket(this.config.url);   
             // apply events 
             this.ws = Ext.apply(this.ws, {
                 onopen: function () {    
@@ -426,8 +424,8 @@ Ext.define('Ext.websocket.WebSocket', {
                 }
             });
             
-            Ext.websocket.WebSocket.socketId++;
-            this.socketId = Ext.websocket.WebSocket.socketId;
+            Ext.ux.websocket.WebSocket.socketId++;
+            this.socketId = Ext.ux.websocket.WebSocket.socketId;
             
             //this.status = this.ws.readyStatus;
             
@@ -437,7 +435,7 @@ Ext.define('Ext.websocket.WebSocket', {
         }
     },
     
-<span id='Ext-websocket-WebSocket-method-send'>    /**
+<span id='Ext-ux-websocket-WebSocket-method-send'>    /**
 </span>     * Send data to the WebSocket
      * @param {Object} Data
      */
@@ -454,7 +452,7 @@ Ext.define('Ext.websocket.WebSocket', {
         }
     },
     
-<span id='Ext-websocket-WebSocket-method-close'>    /**
+<span id='Ext-ux-websocket-WebSocket-method-close'>    /**
 </span>     * Close the current socket
      * @param {Number} Close state code. Optional
      * @param {String} Close reason message. Optional
@@ -465,7 +463,7 @@ Ext.define('Ext.websocket.WebSocket', {
         //this.onSocketClose(code, reason); @remove
     },
     
-<span id='Ext-websocket-WebSocket-method-getStatusCode'>    /**
+<span id='Ext-ux-websocket-WebSocket-method-getStatusCode'>    /**
 </span>     * Returns the state code of the connection. (readyState property)
      * It can have the following values:
      * - 0 indicates that the connection has not yet been established.
@@ -479,7 +477,7 @@ Ext.define('Ext.websocket.WebSocket', {
         return this.ws.readyState;
     },
     
-<span id='Ext-websocket-WebSocket-method-getStatus'>    /**
+<span id='Ext-ux-websocket-WebSocket-method-getStatus'>    /**
 </span>     * Returns the state string based on the W3C specification.
      * See {@link Ext.websocket#getStatusCode}
      * See &lt;http://dev.w3.org/html5/websockets/#websocket&gt;
@@ -515,7 +513,7 @@ Ext.define('Ext.websocket.WebSocket', {
         return state;
     },
         
-<span id='Ext-websocket-WebSocket-method-setDebug'>    /**
+<span id='Ext-ux-websocket-WebSocket-method-setDebug'>    /**
 </span>     * Sets debug mode
      * @param {Boolean} debug
      */
@@ -524,7 +522,7 @@ Ext.define('Ext.websocket.WebSocket', {
             this.debug = debug;
     },
     
-<span id='Ext-websocket-WebSocket-method-isOpen'>    /**
+<span id='Ext-ux-websocket-WebSocket-method-isOpen'>    /**
 </span>     * Returns `true` if the socket state is open, otherwise returns `false`
      * See {@link Ext.websocket#getStatusCode}
      * @return {Boolean}
@@ -533,7 +531,7 @@ Ext.define('Ext.websocket.WebSocket', {
         return (this.getStatusCode() === 1) ? true : false;
     },
     
-<span id='Ext-websocket-WebSocket-method-getBuffer'>    /**
+<span id='Ext-ux-websocket-WebSocket-method-getBuffer'>    /**
 </span>     * Returns the bufferedAmount property. This represents the number 
      * of bytes of UTF-8 text that have been queued using {@link Ext.websocket.send()} method.
      * @return {Number}
@@ -542,7 +540,7 @@ Ext.define('Ext.websocket.WebSocket', {
         return this.ws.bufferedAmount;
     },
     
-<span id='Ext-websocket-WebSocket-method-getProtocol'>    /**
+<span id='Ext-ux-websocket-WebSocket-method-getProtocol'>    /**
 </span>     * Returns the server protocol if defined by the server. Default to empty string
      * See &lt;http://www.w3.org/TR/2012/CR-websockets-20120920/#dom-websocket-protocol&gt;
      * @return {String}
@@ -551,7 +549,7 @@ Ext.define('Ext.websocket.WebSocket', {
         return this.ws.protocol;
     },
     
-<span id='Ext-websocket-WebSocket-method-getExtensions'>    /**
+<span id='Ext-ux-websocket-WebSocket-method-getExtensions'>    /**
 </span>     * Returns the extensions selected by the server, if any.
      * See &lt;http://www.w3.org/TR/2012/CR-websockets-20120920/#dom-websocket-extensions&gt;
      * @return {String}
@@ -560,7 +558,7 @@ Ext.define('Ext.websocket.WebSocket', {
         return this.ws.extensions;
     },
     
-<span id='Ext-websocket-WebSocket-method-getBynaryType'>    /**
+<span id='Ext-ux-websocket-WebSocket-method-getBynaryType'>    /**
 </span>     * Return the binaryType attribute
      * See &lt;http://www.w3.org/TR/2012/CR-websockets-20120920/#dom-websocket-binarytype&gt;
      * @return {String}
@@ -569,7 +567,7 @@ Ext.define('Ext.websocket.WebSocket', {
         return this.ws.binaryType;
     },
     
-<span id='Ext-websocket-WebSocket-method-onSocketOpen'>    /**
+<span id='Ext-ux-websocket-WebSocket-method-onSocketOpen'>    /**
 </span>     * Handle on socket open event
      * @param {Object} EventListener
      * @private
@@ -580,7 +578,7 @@ Ext.define('Ext.websocket.WebSocket', {
             this.fireEvent('open', this.openEvent );
     },
     
-<span id='Ext-websocket-WebSocket-method-onSocketMessage'>    /**
+<span id='Ext-ux-websocket-WebSocket-method-onSocketMessage'>    /**
 </span>     * Handle on socket message event
      * @param {Object} MessageEvent
      * @private
@@ -592,7 +590,7 @@ Ext.define('Ext.websocket.WebSocket', {
             this.fireEvent('message', this.messageEvent );
     },
     
-<span id='Ext-websocket-WebSocket-method-onSocketError'>    /**
+<span id='Ext-ux-websocket-WebSocket-method-onSocketError'>    /**
 </span>     * Handle on socket error event
      * @param {Object} EventListener
      * @private
@@ -606,7 +604,7 @@ Ext.define('Ext.websocket.WebSocket', {
 
     },    
     
-<span id='Ext-websocket-WebSocket-method-onSocketClose'>    /**
+<span id='Ext-ux-websocket-WebSocket-method-onSocketClose'>    /**
 </span>     * Handle on socket close event and pass the CloseEvent Object
      * See &lt;https://developer.mozilla.org/en-US/docs/WebSockets/WebSockets_reference/CloseEvent#Status_codes&gt;
      * @param {Object} CloseEvent Object
@@ -621,7 +619,7 @@ Ext.define('Ext.websocket.WebSocket', {
             this.fireEvent('close', this.closeEvent );
     },
     
-<span id='Ext-websocket-WebSocket-method-getWebSocket'>    /**
+<span id='Ext-ux-websocket-WebSocket-method-getWebSocket'>    /**
 </span>     * Returns the WebSocket object instance
      * @return {Object} WebSocket instance
      */
@@ -629,57 +627,59 @@ Ext.define('Ext.websocket.WebSocket', {
         return this.ws;
     },
     
-<span id='Ext-websocket-WebSocket-property-statics'>    /**
+<span id='Ext-ux-websocket-WebSocket-property-statics'>    /**
 </span>     * Class static methods
      */
     statics: {
         
-<span id='Ext-websocket-WebSocket-static-method-libraryVersion'>        /**
+<span id='Ext-ux-websocket-WebSocket-static-property-libVersion'>        /**
 </span>         * Sencha WebSocket library version
          * See &lt;http://docs.sencha.com/ext-js/4-1/#!/api/Ext.Version&gt;
-         * @return {Object} Ext.Version
+         * @property {Ext.Version} libVersion
          * @static
+         * @readonly
          */
-        libraryVersion: Ext.websocket.Version.library,
+        libVersion: Ext.websocket.Version.library,
         
-<span id='Ext-websocket-WebSocket-static-property-has'>        /**
+<span id='Ext-ux-websocket-WebSocket-static-property-has'>        /**
 </span>         * @property {Boolean} has
          * Return if the current browser supports WebSocket  
          * @static
+         * @readonly
          */
         has: ('WebSocket' in window) ? true : false,
         
-<span id='Ext-websocket-WebSocket-static-property-WebSocket'>        /**
+<span id='Ext-ux-websocket-WebSocket-static-property-WebSocket'>        /**
 </span>         * @property {WebSocket} WebSocket Object
          * WebSocket native JavaScript Object
          * @static
-         * @private
+         * @readonly
          */
         Socket: ('WebSocket' in window) ? WebSocket : (('MozWebSocket' in window) ? MozWebSocket : false),
     
-<span id='Ext-websocket-WebSocket-property-exceptionErrors'>        exceptionErrors: {
+<span id='Ext-ux-websocket-WebSocket-property-exceptionErrors'>        exceptionErrors: {
 </span>            // todo
         },
     
-<span id='Ext-websocket-WebSocket-static-method-create'>        /**
+<span id='Ext-ux-websocket-WebSocket-static-method-create'>        /**
 </span>         * Creates new Ext.websocket instance with the given config
-         * @param {Object} Ext.websocket.WebSocket config Object
-         * @return {Object} Ext.websocket.WebSocket
+         * @param {Object} Ext.ux.websocket.WebSocket config Object
+         * @return {Object} Ext.ux.websocket.WebSocket
          * @static
          */
         create: function (config) {
-            return Ext.create('Ext.websocket.WebSocket', config);
+            return Ext.create('Ext.ux.websocket.WebSocket', config);
         },
         
-<span id='Ext-websocket-WebSocket-static-property-socketId'>        /**
+<span id='Ext-ux-websocket-WebSocket-static-property-socketId'>        /**
 </span>         * Request identifier
          * @property {Number} socketId
          * @static
-         * @private
+         * @readonly
          */
         socketId: 0,
         
-<span id='Ext-websocket-WebSocket-static-method-parseUri'>        /**
+<span id='Ext-ux-websocket-WebSocket-static-method-parseUri'>        /**
 </span>         * Parse URI and returns a Object
          * @return {Object} 
          * @static
@@ -697,7 +697,7 @@ Ext.define('Ext.websocket.WebSocket', {
             return uri;
         },
         
-<span id='Ext-websocket-WebSocket-static-method-uniqueUri'>        /**
+<span id='Ext-ux-websocket-WebSocket-static-method-uniqueUri'>        /**
 </span>         * Returns a unique URI
          * @return {String} 
          * @static
@@ -720,7 +720,7 @@ Ext.define('Ext.websocket.WebSocket', {
             return (protocol || 'http') + '://' + host + ':' + (port || 80);
         },
         
-<span id='Ext-websocket-WebSocket-static-method-isValidUrl'>        /**
+<span id='Ext-ux-websocket-WebSocket-static-method-isValidUrl'>        /**
 </span>         * Check if a given URL has a valid schema
          * @param {String} url
          * @static

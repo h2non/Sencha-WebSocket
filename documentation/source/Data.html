@@ -15,30 +15,30 @@
   </script>
 </head>
 <body onload="prettyPrint(); highlight();">
-  <pre class="prettyprint lang-js"><span id='Ext-websocket-packet-Data'>/** 
+  <pre class="prettyprint lang-js"><span id='Ext-ux-websocket-packet-Data'>/** 
 </span> * TODO
  *
- * @class Ext.websocket.packet.Data
+ * @class Ext.ux.websocket.packet.Data
  */
-Ext.define('Ext.websocket.packet.Error', {
+Ext.define('Ext.ux.websocket.packet.Data', {
     
-<span id='Ext-websocket-packet-Data-property-require'>    require: [
-</span>        'Ext.websocket.Version'
+<span id='Ext-ux-websocket-packet-Data-property-require'>    require: [
+</span>        'Ext.ux.websocket.Version'
     ],
     
     config: {
         
-<span id='Ext-websocket-packet-Data-cfg-id'>        id: 0,
+<span id='Ext-ux-websocket-packet-Data-cfg-id'>        id: 0,
 </span>        
-<span id='Ext-websocket-packet-Data-cfg-timestamp'>        timestamp: null,
+<span id='Ext-ux-websocket-packet-Data-cfg-timestamp'>        timestamp: null,
 </span>        
-<span id='Ext-websocket-packet-Data-cfg-clientVersion'>        clientVersion: 'Sencha WebSocket ' + Ext.websocket.Version.library,
+<span id='Ext-ux-websocket-packet-Data-cfg-clientVersion'>        clientVersion: 'Sencha WebSocket ' + Ext.ux.websocket.Version.library,
 </span>        
-<span id='Ext-websocket-packet-Data-cfg-type'>        type: 'json'
+<span id='Ext-ux-websocket-packet-Data-cfg-type'>        type: 'data'
 </span>        
     },
     
-<span id='Ext-websocket-packet-Data-method-constructor'>    // todo
+<span id='Ext-ux-websocket-packet-Data-method-constructor'>    // todo
 </span>    constructor: function (config) {
         
         this.initConfig(config);

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Sencha WebSocket Examples - Basic</title>
+        <title>Sencha WebSocket Examples - Socket.IO</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <!-- Sencha Touch 2.1.0 -->
@@ -19,13 +19,20 @@
         <!-- WebSocket library -->
         <script src="../src/ux/websocket/Loader.js"></script>
 
+        <!-- Socket.IO client library -->
+        <script src="../lib/socket.io.js"></script>
+        
         <script type="text/javascript">
             
             Ext.onReady(function () {
                 
                 // local socket example
                 var socket = Ext.ux.websocket.WebSocket.create({
-                    url: 'ws://localhost:8080/', //'ws://localhost:8080/socket.io/1/websocket/',
+                    server: 'socket.io',
+                    url: 'ws://localhost:8080/',
+                    options: {
+                        
+                    },
                     listeners: {
                         open: function () {
                             console.log('The socket is open!');
@@ -36,6 +43,25 @@
                         },
                         close: function (event) {
                             console.log('Socket closed: ' + event.getCode() + ' -> ' + event.getReason());
+                        }
+                    }
+                });
+                
+                // invalid websocket example
+                var socket2 = Ext.ux.websocket.WebSocket.create({
+                    url: 'ws://google.es:80/',
+                    listeners: {
+                        open: function (event) {
+                            console.log('The socket is open!');
+                            event.getSocket().send({ sample: 'This is a sample data string' });
+                        },
+                        error: function () {
+                        },
+                        message: function (event) {
+                            document.write('Data received -> ' + event.getData() + '<br>');
+                        },
+                        close: function (event) {
+                            console.log(event);
                         }
                     }
                 });

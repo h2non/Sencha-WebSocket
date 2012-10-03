@@ -7,9 +7,9 @@
  * 
  * Note: event under sofware designing, thinking for a future use
  * 
- * @class Ext.websocket.event.Error
+ * @class Ext.ux.websocket.event.Error
  */
-Ext.define('Ext.websocket.event.Error', {
+Ext.define('Ext.ux.websocket.event.Error', {
     
     config: {
         
@@ -21,7 +21,7 @@ Ext.define('Ext.websocket.event.Error', {
         
         /**
          * @cfg {Object} WebSocket
-         * The {@link Ext.websocket.WebSocket} instance
+         * The {@link Ext.ux.websocket.WebSocket} instance
          */
         WebSocket: {},
         
@@ -41,17 +41,17 @@ Ext.define('Ext.websocket.event.Error', {
     /**
      * Class constructor
      * @param {Object} EventListener Object. Required
-     * @param {Object} {@link Ext.websocket.WebSocket}. Required
+     * @param {Object} {@link Ext.ux.websocket.WebSocket}. Required
      */
     constructor: function (ErrorEvent, WebSocket) {
         
-        Ext.websocket.event.Error.eventId++;
+        Ext.ux.websocket.event.Error.eventId++;
 
         this.initConfig({
             WebSocket: WebSocket,
             timestamp: ErrorEvent.timestamp || new Date().getTime(),
             event: ErrorEvent,
-            id: Ext.websocket.event.Error.eventId
+            id: Ext.ux.websocket.event.Error.eventId
         });
         
     },

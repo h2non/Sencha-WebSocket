@@ -1,12 +1,12 @@
 /** 
  * TODO
  *
- * @class Ext.websocket.packet.Data
+ * @class Ext.ux.websocket.packet.Broadcast
  */
-Ext.define('Ext.websocket.packet.Error', {
+Ext.define('Ext.ux.websocket.packet.Broadcast', {
     
     require: [
-        'Ext.websocket.Version'
+        'Ext.ux.websocket.Version'
     ],
     
     config: {
@@ -15,9 +15,9 @@ Ext.define('Ext.websocket.packet.Error', {
         
         timestamp: null,
         
-        clientVersion: 'Sencha WebSocket ' + Ext.websocket.Version.library,
+        clientVersion: 'Sencha WebSocket ' + Ext.ux.websocket.Version.library,
         
-        type: 'json'
+        type: 'broadcast'
         
     },
     

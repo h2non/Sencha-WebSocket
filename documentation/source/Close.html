@@ -15,7 +15,7 @@
   </script>
 </head>
 <body onload="prettyPrint(); highlight();">
-  <pre class="prettyprint lang-js"><span id='Ext-websocket-event-Close'>/**
+  <pre class="prettyprint lang-js"><span id='Ext-ux-websocket-event-Close'>/**
 </span> * Class implementing an abstraction of CloseEvent native Object.
  * 
  * This class is used internally by the library.
@@ -24,63 +24,63 @@
  * 
  * See &lt;http://www.w3.org/TR/2012/CR-websockets-20120920/#closeevent&gt;
  * 
- * @class Ext.websocket.event.Close
+ * @class Ext.ux.websocket.event.Close
  */
-Ext.define('Ext.websocket.event.Close', {
+Ext.define('Ext.ux.websocket.event.Close', {
     
     config: {
         
-<span id='Ext-websocket-event-Close-cfg-code'>        /**
+<span id='Ext-ux-websocket-event-Close-cfg-code'>        /**
 </span>         * @cfg {Number} code
          * It represents the WebSocket connection close code provided by the server
          */
         code: 0,
         
-<span id='Ext-websocket-event-Close-cfg-reason'>        /**
+<span id='Ext-ux-websocket-event-Close-cfg-reason'>        /**
 </span>         * @cfg {String} reason
          * It represents whether the connection closed cleanly or not.
          */        
         reason: &quot;&quot;,
         
-<span id='Ext-websocket-event-Close-cfg-wasClean'>        /**
+<span id='Ext-ux-websocket-event-Close-cfg-wasClean'>        /**
 </span>         * @cfg {Number} wasClean
          * It represents the WebSocket connection close reason provided by the server.
          */
         wasClean: false,
         
-<span id='Ext-websocket-event-Close-cfg-timestamp'>        /**
+<span id='Ext-ux-websocket-event-Close-cfg-timestamp'>        /**
 </span>         * @cfg {Number} timestamp
          * Event creation timestamp
          */
         timestamp: 0,
         
-<span id='Ext-websocket-event-Close-cfg-WebSocket'>        /**
+<span id='Ext-ux-websocket-event-Close-cfg-WebSocket'>        /**
 </span>         * @cfg {Object} WebSocket
-         * The {@link Ext.websocket.WebSocket} instance
+         * The {@link Ext.ux.websocket.WebSocket} instance
          */
         WebSocket: {},
         
-<span id='Ext-websocket-event-Close-cfg-id'>        /**
+<span id='Ext-ux-websocket-event-Close-cfg-id'>        /**
 </span>         * @cfg {Number} id
          * Event identifier
          */
         id: 0,
         
-<span id='Ext-websocket-event-Close-cfg-event'>        /**
+<span id='Ext-ux-websocket-event-Close-cfg-event'>        /**
 </span>         * @cfg {Object} event
          * Native CloseEvent user-agent Object
          */
         event: {}
     },
     
-<span id='Ext-websocket-event-Close-method-constructor'>    /**
+<span id='Ext-ux-websocket-event-Close-method-constructor'>    /**
 </span>     * Class constructor
      * @param {Object} CloseEvent Object. Required
-     * @param {Object} {@link Ext.websocket.WebSocket}. Required
+     * @param {Object} {@link Ext.ux.websocket.WebSocket}. Required
      */
     constructor: function (CloseEvent, WebSocket) {
         
-        Ext.websocket.event.Close.eventId++;
+        Ext.ux.websocket.event.Close.eventId++;
 
         this.initConfig({
             code: CloseEvent.code,
@@ -89,34 +89,34 @@ Ext.define('Ext.websocket.event.Close', {
             WebSocket: WebSocket,
             timestamp: CloseEvent.timestamp || new Date().getTime(),
             event: CloseEvent,
-            id: Ext.websocket.event.Close.eventId
+            id: Ext.ux.websocket.event.Close.eventId
         });
         
     },
     
-<span id='Ext-websocket-event-Close-method-getCodeString'>    /**
+<span id='Ext-ux-websocket-event-Close-method-getCodeString'>    /**
 </span>     * Returns the code state standard string-mode
-     * See {@link Ext.websocket.event.Close#closeCodes}
+     * See {@link Ext.ux.websocket.event.Close#closeCodes}
      * See &lt;https://developer.mozilla.org/en-US/docs/WebSockets/WebSockets_reference/CloseEvent#Status_codes&gt;
      * @return {String}
      */
     getCodeString: function () {
-        var state = Ext.websocket.event.Close.closeCodes[this.getCode()];
+        var state = Ext.ux.websocket.event.Close.closeCodes[this.getCode()];
         if (state === undefined)
             return 'UNKNOWN';
         else
             return state;
     },
     
-<span id='Ext-websocket-event-Close-method-getStateMessage'>    /**
+<span id='Ext-ux-websocket-event-Close-method-getStateMessage'>    /**
 </span>     * Returns the text message description about the error
-     * See {@link Ext.websocket.event.Close#closeCodes}
+     * See {@link Ext.ux.websocket.event.Close#closeCodes}
      * See &lt;https://developer.mozilla.org/en-US/docs/WebSockets/WebSockets_reference/CloseEvent#Status_codes&gt;
      * TODO: detect state code
      * @return {String}
      */
     getStateMessage: function () {
-        var state = Ext.websocket.event.Close.stateMessage[this.getCode()];
+        var state = Ext.ux.websocket.event.Close.stateMessage[this.getCode()];
         if (state === undefined)
             return 'Unknown state code &quot;'+ this.getCode() +'&quot;. Probably the code is a reserved range or private server range';
         else
@@ -125,13 +125,13 @@ Ext.define('Ext.websocket.event.Close', {
     
     statics: {
         
-<span id='Ext-websocket-event-Close-static-property-eventId'>        /**
+<span id='Ext-ux-websocket-event-Close-static-property-eventId'>        /**
 </span>         * CloseEvent message
          * @static
          */
         eventId: 0,
         
-<span id='Ext-websocket-event-Close-static-property-closeCodes'>        /**
+<span id='Ext-ux-websocket-event-Close-static-property-closeCodes'>        /**
 </span>         * @property {Object} closeCodes
          * Standard close event state code
          * See &lt;https://developer.mozilla.org/en-US/docs/WebSockets/WebSockets_reference/CloseEvent#Status_codes&gt;
@@ -147,7 +147,7 @@ Ext.define('Ext.websocket.event.Close', {
             1006: 'CLOSE_ABNORMAL'
         },
         
-<span id='Ext-websocket-event-Close-static-property-stateMessage'>        /**
+<span id='Ext-ux-websocket-event-Close-static-property-stateMessage'>        /**
 </span>         * @property {Object} stateMessage
          * Description message for the standard codes
          * See &lt;https://developer.mozilla.org/en-US/docs/WebSockets/WebSockets_reference/CloseEvent#Close_codes&gt;

@@ -15,30 +15,30 @@
   </script>
 </head>
 <body onload="prettyPrint(); highlight();">
-  <pre class="prettyprint lang-js"><span id='Ext-ux-websocket-packet-Error'>/** 
+  <pre class="prettyprint lang-js"><span id='Ext-ux-websocket-packet-Broadcast'>/** 
 </span> * TODO
  *
- * @class Ext.ux.websocket.packet.Error
+ * @class Ext.ux.websocket.packet.Broadcast
  */
-Ext.define('Ext.ux.websocket.packet.Error', {
+Ext.define('Ext.ux.websocket.packet.Broadcast', {
     
-<span id='Ext-ux-websocket-packet-Error-property-require'>    require: [
+<span id='Ext-ux-websocket-packet-Broadcast-property-require'>    require: [
 </span>        'Ext.ux.websocket.Version'
     ],
     
     config: {
         
-<span id='Ext-ux-websocket-packet-Error-cfg-id'>        id: 0,
+<span id='Ext-ux-websocket-packet-Broadcast-cfg-id'>        id: 0,
 </span>        
-<span id='Ext-ux-websocket-packet-Error-cfg-timestamp'>        timestamp: null,
+<span id='Ext-ux-websocket-packet-Broadcast-cfg-timestamp'>        timestamp: null,
 </span>        
-<span id='Ext-ux-websocket-packet-Error-cfg-clientVersion'>        clientVersion: 'Sencha WebSocket ' + Ext.ux.websocket.Version.library,
+<span id='Ext-ux-websocket-packet-Broadcast-cfg-clientVersion'>        clientVersion: 'Sencha WebSocket ' + Ext.ux.websocket.Version.library,
 </span>        
-<span id='Ext-ux-websocket-packet-Error-cfg-type'>        type: 'error'
+<span id='Ext-ux-websocket-packet-Broadcast-cfg-type'>        type: 'broadcast'
 </span>        
     },
     
-<span id='Ext-ux-websocket-packet-Error-method-constructor'>    // todo
+<span id='Ext-ux-websocket-packet-Broadcast-method-constructor'>    // todo
 </span>    constructor: function (config) {
         
         this.initConfig(config);

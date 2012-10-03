@@ -1,5 +1,5 @@
 /**
- * @class Ext.ux.websocket.WebSocket.Manager
+ * @class Ext.ux.websocket.Manager
  * @author Vincenzo Ferrari <wilk3ert@gmail.com>
  * @singleton
  * 
@@ -11,7 +11,7 @@
  * 
  * Each {@link Ext.ux.websocket.WebSocket} instance you create will be registered throught this manager. 
  *      
- *     Ext.ux.websocket.WebSocket.Manager.listen ('system shutdown', function (ws, data) {
+ *     Ext.ux.websocket.Manager.listen ('system shutdown', function (ws, data) {
  *       Ext.Msg.show ({
  *         title: 'System Shutdown' ,
  *         msg: data ,
@@ -20,16 +20,16 @@
  *       });
  *     });
  *     
- *     Ext.ux.websocket.WebSocket.Manager.broadcast ('system shutdown', 'BROADCAST: the system will shutdown in few minutes.');
+ *     Ext.ux.websocket.Manager.broadcast ('system shutdown', 'BROADCAST: the system will shutdown in few minutes.');
  *     
- *     Ext.ux.websocket.WebSocket.Manager.closeAll ();
+ *     Ext.ux.websocket.Manager.closeAll ();
  *     
- *     Ext.ux.websocket.WebSocket.Manager.unregister (ws1);
- *     Ext.ux.websocket.WebSocket.Manager.unregister (ws2);
- *     Ext.ux.websocket.WebSocket.Manager.unregister (ws3);
+ *     Ext.ux.websocket.Manager.unregister (ws1);
+ *     Ext.ux.websocket.Manager.unregister (ws2);
+ *     Ext.ux.websocket.Manager.unregister (ws3);
  *     
  */
-Ext.define ('Ext.ux.websocket.WebSocket.Manager', {
+Ext.define ('Ext.ux.websocket.Manager', {
     /**
      * @property {Boolean} Define a singleton class
      * @private
@@ -200,7 +200,7 @@ Ext.define ('Ext.ux.websocket.WebSocket.Manager', {
     /**
      * @method close
      * Closes a websocket
-     * @param {Ext.ux.websocket.WebSocket.Wrapper} websocket The websocket to close
+     * @param {Ext.ux.websocket.Wrapper} websocket The websocket to close
      */
     close: function (websocket) {
         var me = this;

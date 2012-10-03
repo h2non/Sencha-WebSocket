@@ -53,6 +53,9 @@ Ext.define('Ext.ux.websocket.SocketIO' , {
 
         try {
             
+            if (!this.statics.has)
+                throw new Error ('Socket.IO client library in not loaded. ');
+            
             this.WebSocket = WebSocket;
             
             Ext.ux.websocket.SocketIO.superclass.constructor.call(this);
@@ -73,6 +76,8 @@ Ext.define('Ext.ux.websocket.SocketIO' , {
             this.socketIO.on('disconnect', function(){
                 that.onDisconnect();
             });
+            
+            this.connect();
             
         } catch (e) {
             throw new Error (e);

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Ext-ux-websocket-event-Close'>/**
+</span> * Class implementing an abstraction of CloseEvent native Object.
+ * 
+ * This class is used internally by the library.
+ * 
+ * Note the native Object can change depending of the user agent.
+ * 
+ * See &lt;http://www.w3.org/TR/2012/CR-websockets-20120920/#closeevent&gt;
+ * 
+ * @class Ext.ux.websocket.event.Close
+ */
+Ext.define('Ext.ux.websocket.event.Close', {
+    
+    config: {
+        
+<span id='Ext-ux-websocket-event-Close-cfg-code'>        /**
+</span>         * @cfg {Number} code
+         * It represents the WebSocket connection close code provided by the server
+         */
+        code: 0,
+        
+<span id='Ext-ux-websocket-event-Close-cfg-reason'>        /**
+</span>         * @cfg {String} reason
+         * It represents whether the connection closed cleanly or not.
+         */        
+        reason: &quot;&quot;,
+        
+<span id='Ext-ux-websocket-event-Close-cfg-wasClean'>        /**
+</span>         * @cfg {Number} wasClean
+         * It represents the WebSocket connection close reason provided by the server.
+         */
+        wasClean: false,
+        
+<span id='Ext-ux-websocket-event-Close-cfg-timestamp'>        /**
+</span>         * @cfg {Number} timestamp
+         * Event creation timestamp
+         */
+        timestamp: 0,
+        
+<span id='Ext-ux-websocket-event-Close-cfg-WebSocket'>        /**
+</span>         * @cfg {Object} WebSocket
+         * The {@link Ext.ux.websocket.WebSocket} instance
+         */
+        WebSocket: {},
+        
+<span id='Ext-ux-websocket-event-Close-cfg-id'>        /**
+</span>         * @cfg {Number} id
+         * Event identifier
+         */
+        id: 0,
+        
+<span id='Ext-ux-websocket-event-Close-cfg-event'>        /**
+</span>         * @cfg {Object} event
+         * Native CloseEvent user-agent Object
+         */
+        event: {}
+    },
+    
+<span id='Ext-ux-websocket-event-Close-method-constructor'>    /**
+</span>     * Class constructor
+     * @param {Object} CloseEvent Object. Required
+     * @param {Object} {@link Ext.ux.websocket.WebSocket}. Required
+     */
+    constructor: function (CloseEvent, WebSocket) {
+        
+        Ext.ux.websocket.event.Close.eventId++;
+
+        this.initConfig({
+            code: CloseEvent.code,
+            reason: CloseEvent.reason,
+            wasClean: CloseEvent.wasClean,
+            WebSocket: WebSocket,
+            timestamp: CloseEvent.timestamp || new Date().getTime(),
+            event: CloseEvent,
+            id: Ext.ux.websocket.event.Close.eventId
+        });
+        
+    },
+    
+<span id='Ext-ux-websocket-event-Close-method-getCodeString'>    /**
+</span>     * Returns the code state standard string-mode
+     * See {@link Ext.ux.websocket.event.Close#closeCodes}
+     * See &lt;https://developer.mozilla.org/en-US/docs/WebSockets/WebSockets_reference/CloseEvent#Status_codes&gt;
+     * @return {String}
+     */
+    getCodeString: function () {
+        var state = Ext.ux.websocket.event.Close.closeCodes[this.getCode()];
+        if (state === undefined)
+            return 'UNKNOWN';
+        else
+            return state;
+    },
+    
+<span id='Ext-ux-websocket-event-Close-method-getStateMessage'>    /**
+</span>     * Returns the text message description about the error
+     * See {@link Ext.ux.websocket.event.Close#closeCodes}
+     * See &lt;https://developer.mozilla.org/en-US/docs/WebSockets/WebSockets_reference/CloseEvent#Status_codes&gt;
+     * TODO: detect state code
+     * @return {String}
+     */
+    getStateMessage: function () {
+        var state = Ext.ux.websocket.event.Close.stateMessage[this.getCode()];
+        if (state === undefined)
+            return 'Unknown state code &quot;'+ this.getCode() +'&quot;. Probably the code is a reserved range or private server range';
+        else
+            return state;
+    },
+    
+    statics: {
+        
+<span id='Ext-ux-websocket-event-Close-static-property-eventId'>        /**
+</span>         * CloseEvent message
+         * @static
+         */
+        eventId: 0,
+        
+<span id='Ext-ux-websocket-event-Close-static-property-closeCodes'>        /**
+</span>         * @property {Object} closeCodes
+         * Standard close event state code
+         * See &lt;https://developer.mozilla.org/en-US/docs/WebSockets/WebSockets_reference/CloseEvent#Status_codes&gt;
+         * @static
+         */
+        closeCodes: {
+            1000: 'CLOSE_NORMAL',
+            1001: 'CLOSE_GOING_AWAY',
+            1002: 'CLOSE_PROTOCOL_ERROR',
+            1003: 'CLOSE_UNSUPPORTED',
+            1004: 'CLOSE_TOO_LARGE',
+            1005: 'CLOSE_NO_STATUS',
+            1006: 'CLOSE_ABNORMAL'
+        },
+        
+<span id='Ext-ux-websocket-event-Close-static-property-stateMessage'>        /**
+</span>         * @property {Object} stateMessage
+         * Description message for the standard codes
+         * See &lt;https://developer.mozilla.org/en-US/docs/WebSockets/WebSockets_reference/CloseEvent#Close_codes&gt;
+         * @static
+         */
+        stateMessage: {
+            1000: 'Normal closure; the connection successfully completed whatever purpose for which it was created.',
+            1001: 'The endpoint is going away, either because of a server failure or because the browser is navigating away from the page that opened the connection.',
+            1002: 'The endpoint is terminating the connection due to a protocol error.',
+            1003: 'The connection is being terminated because the endpoint received data of a type it cannot accept (for example, a text-only endpoint received binary data).',
+            1004: 'The endpoint is terminating the connection because a data frame was received that is too large.',
+            1005: 'No status code was provided even though one was expected.',
+            1006: 'The connection was closed abnormally (that is, with no close frame being sent) when a status code is expected.'
+        }
+    }
+    
+});</pre>
+</body>
+</html>

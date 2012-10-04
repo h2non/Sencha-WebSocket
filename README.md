@@ -98,6 +98,7 @@ TODO
 # Documentation
 
 Library API documentation:
+
 <http://h2non.github.com/Sencha-WebSocket/>
 
 # Author
@@ -107,6 +108,7 @@ Library API documentation:
 # Issues 
 
 Feel free to report any issue you experiment via Github <https://github.com/h2non/Sencha-WebSocket>
+
 Any [feedback](mailto:tomas@rijndael-project.com) is also welcome :)
 
 # License

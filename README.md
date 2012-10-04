@@ -73,8 +73,6 @@ In other words, is supported all Ext Core 4.x based-frameworks
 
 For more info about browsers support see <http://en.wikipedia.org/wiki/WebSocket#Browser_support>
  
-# Usage
-
 ## Installation
 
 TODO

@@ -5,11 +5,11 @@
  * 
  * An easy-to-use {@link Ext.ux.websocket.WebSocket} instances manager. 
  * 
- * It simplyfies a multiple socket management. 
+ * It simplyfies a multiple WebSocket management. 
  * 
  * This class is based on the Vincenzo Ferrari implementation: <https://github.com/wilk/ExtJS-WebSocket/blob/master/ux/WebSocketManager.js>
  * 
- * Each {@link Ext.ux.websocket.WebSocket} instance you create will be registered throught this manager. 
+ * Each {@link Ext.ux.websocket.WebSocket} instance you create will be registered through the Manager. 
  *      
  *     Ext.ux.websocket.Manager.listen ('system shutdown', function (ws, data) {
  *       Ext.Msg.show ({
@@ -29,9 +29,11 @@
  *     Ext.ux.websocket.Manager.unregister (ws3);
  *     
  */
+
 Ext.define ('Ext.ux.websocket.Manager', {
+    
     /**
-     * @property {Boolean} Define a singleton class
+     * @property {Boolean} Defines a singleton class
      * @private
      */
     singleton: true ,
@@ -44,7 +46,7 @@ Ext.define ('Ext.ux.websocket.Manager', {
     hashMap: Ext.create('Ext.util.HashMap'),
 
     /**
-     * @property {Number} WebSockets counter Counter of registered WebSockets
+     * @property {Number} WebSockets counter Counter of registered {@link Ext.us.websocket.WebSocket} instances
      * @readonly
      */
     counter: 0,
@@ -67,16 +69,15 @@ Ext.define ('Ext.ux.websocket.Manager', {
     },
 
     /**
-     * Checks if a websocket is already registered or not
-     * @param {Ext.ux.websocket.WebSocket} websocket The WebSocket to find
-     * @return {Boolean} True if the websocket is already registered, False otherwise
+     * Checks if a WebSocket is already registered or not
+     * @param {Ext.ux.websocket.WebSocket} websocket The {@link Ext.us.websocket.WebSocket} to find
+     * @return {Boolean} True if the websocket is already registeredse otherwise, False otherwise
      */
-    contains: function (websocket) {
-        return this.hashMap.containsKey (websocket.url);
+    contains: function (WebSocket) {
+        return this.hashMap.containsKey (WebSocket.getUrl());
     },
 
     /**
-     * @method get
      * Retrieves a registered websocket by its url
      * @param {String} url The url of the websocket to search
      * @return {Ext.ux.websocket.WebSocket} The websocket or undefined
@@ -86,7 +87,6 @@ Ext.define ('Ext.ux.websocket.Manager', {
     },
 
     /**
-     * @method each
      * Executes a function for each registered websocket
      * @param {Function} fn The function to execute
      */
@@ -97,26 +97,23 @@ Ext.define ('Ext.ux.websocket.Manager', {
     } ,
 
     /**
-     * @method unregister
      * Unregisters one or more Ext.ux.websocket.WebSocket
      * @param {Ext.ux.websocket.WebSocket/Ext.ux.websocket.WebSocket[]} websockets WebSockets to unregister
      */
-    unregister: function (websockets) {
-        var me = this;
+    unregister: function (WebSocket) {
 
-        if (Ext.isObject (websockets)) websockets = [websockets];
+        if (Ext.isObject (WebSocket)) WebSocket = [ WebSocket ];
 
-        for (var i in websockets) {
-            if (me.hashMap.containsKey (websockets[i].url)) {
-                    me.hashMap.removeAtKey (websockets[i].url);
-                    me.counter--;
+        for (var i in WebSocket) {
+            if (this.hashMap.containsKey (WebSocket[i].getUrl() )) {
+                this.hashMap.removeAtKey (WebSocket[i].getUrl() );
+                this.counter--;
             }
         }
     } ,
 
     /**
-     * @method broadcast
-     * Sends a message to each websocket
+     * Sends a message event to websocket
      * @param {String} event The event to raise
      * @param {String/Object} message The data to send
      */
@@ -125,7 +122,6 @@ Ext.define ('Ext.ux.websocket.Manager', {
     } ,
 
     /**
-     * @method multicast
      * Sends a message to each websocket, except those specified
      * @param {Ext.ux.websocket.WebSocket/Ext.ux.websocket.WebSocket[]} websockets An array of websockets to take off the communication
      * @param {String} event The event to raise
@@ -135,17 +131,16 @@ Ext.define ('Ext.ux.websocket.Manager', {
         this.getExcept(websockets).each (function (url, websocket, len) {
             if (websocket.isReady ()) {
                 if ((message === undefined) || (message === null)) {
-                        websocket.send (event);
+                    websocket.send (event);
                 }
                 else {
-                        websocket.send (event, message);
+                    websocket.send (event, message);
                 }
             }
         });
     } ,
 
     /**
-     * @method listen
      * Adds an handler for events given to each registered websocket
      * @param {String/String[]} events Events to listen
      * @param {Function} handler The events' handler
@@ -154,73 +149,69 @@ Ext.define ('Ext.ux.websocket.Manager', {
         if (Ext.isString (events)) events = [events];
 
         this.hashMap.each (function (url, websocket, len) {
-                for (var i in events) {
-                        websocket.on (events[i], handler);
-                }
+            for (var i in events) {
+                    websocket.on (events[i], handler);
+            }
         });
     } ,
 
     /**
-     * @method listenExcept
      * Adds an handler for events given to each registered websocket, except websockets given
      * @param {String/String[]} events Events to listen
      * @param {Ext.ux.websocket.WebSocket/Ext.ux.websocket.WebSocket[]} websockets WebSockets to exclude
      * @param {Function} handler The events' handler
      */
     listenExcept: function (events, websockets, handler) {
-        if (Ext.isString (events)) events = [events];
+        if (Ext.isString (events)) events = [ events ];
 
         this.getExcept(websockets).each (function (url, websocket, len) {
-                for (var i in events) {
-                        websocket.on (events[i], handler);
-                }
+            for (var i in events) {
+                    websocket.on (events[i], handler);
+            }
         });
     } ,
 
     /**
-     * @method getExcept
      * Retrieves registered websockets except the input
      * @param {Ext.ux.websocket.WebSocket/Ext.ux.websocket.WebSocket[]} websockets WebSockets to exclude
      * @return {Ext.util.HashMap} Registered websockets except the input
      * @private
      */
     getExcept: function (websockets) {
-        if (Ext.isObject (websockets)) websockets = [websockets];
+        if (Ext.isObject (websockets)) websockets = [ websockets ];
 
         var list = this.hashMap;
 
         // Exclude websockets from the communication
         for (var i in websockets) {
-                list.removeAtKey (websockets[i]);
+            list.removeAtKey (websockets[i]);
         }
 
         return list;
     } ,
 
     /**
-     * @method close
-     * Closes a websocket
-     * @param {Ext.ux.websocket.Wrapper} websocket The websocket to close
+     * Closes a WebSocket
+     * @param {Ext.ux.websocket.WebSocket} websocket The websocket to close
      */
     close: function (websocket) {
         var me = this;
 
-        if (me.hashMap.containsKey (websocket.url)) {
-                me.hashMap.get(websocket.url).close ();
-                me.unregister (websocket);
+        if (me.hashMap.containsKey ( websocket.getUrl() )) {
+            me.hashMap.get( websocket.getUrl() ).close ();
+            me.unregister ( websocket);
         }
     } ,
 
     /**
-     * @method closeAll
      * Closes any registered websocket
      */
     closeAll: function () {
         var me = this;
 
         me.hashMap.each (function (url, websocket, len) {
-                websocket.close ();
-                me.unregister (websocket);
+            websocket.close ();
+            me.unregister (websocket);
         });
     }
 });

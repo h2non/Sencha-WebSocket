@@ -20,11 +20,12 @@
  * 
  * ## Features
  * 
- * - Full integration with the Sencha core framwork (see frameworks supported)
+ * - Abstraction from native JavaScript API
+ * - Full integration with the Sencha core framework (see frameworks supported)
  * - Complete and extensible event-handling support
  * - General improves for better WebSocket API management
  * - Support for custom JSON-based packets
- * - Improved error handling
+ * - Error handling
  * - Standard error messages
  * - Debugging
  * - Easy-to-use
@@ -98,7 +99,8 @@
  * 
  * # Documentation
  * 
- * TODO
+ * Library API documentation:
+ * <http://h2non.github.com/Sencha-WebSocket/>
  * 
  * # Author
  * 
@@ -170,12 +172,14 @@ Ext.define('Ext.ux.websocket.WebSocket', {
     /**
      * @property {Number} socketId
      * The current socket counter ID
+     * @readonly
      */
     socketId: 0,
     
     /**
      * Counter ID for the sended packets 
      * @property {Number} sendPacketId
+     * @readonly
      */
     sendPacketId: 0,
     
@@ -240,10 +244,10 @@ Ext.define('Ext.ux.websocket.WebSocket', {
     
     /**
      * Alias for {@link Ex.ux.websocket.Manager} class
-     * @property {Ext.ux.websocket.Manager} manager
+     * @property {Ext.ux.websocket.Manager} Manager
      * @readonly
      */
-    manager: Ext.ux.websocket.Manager,
+    Manager: Ext.ux.websocket.Manager,
     
     /**
      * @property {Object} Default class config
@@ -361,10 +365,8 @@ Ext.define('Ext.ux.websocket.WebSocket', {
      */
     constructor: function (config) {
         try {
-            if (!Ext.ux.websocket.Version.isSupported) {
-                //Ext.Logger.error('The current Sencha framework is not supported. Only ExtJS >= 4.x & Sencha Touch >= 2.x');
+            if (!Ext.ux.websocket.Version.isSupported) 
                 throw new Error ('The current Sencha framework is not supported. Only ExtJS >= 4.x & Sencha Touch >= 2.x')
-            }
 
             this.initConfig(config);
 
@@ -395,12 +397,19 @@ Ext.define('Ext.ux.websocket.WebSocket', {
                         this.initDefault();
                     break;
                 }
-
+                
+                Ext.ux.websocket.WebSocket.counter++;
+                this.socketId = Ext.ux.websocket.WebSocket.counter;
+                
+                // register the WebSocket through the Manager
+                this.Manager.register(this);
+                
             } else {
                 this.throwError('WebSockets is not supported');
             } 
+            
         } catch (e) {
-             this.throwError(e);
+            this.throwError(e);
         }
     },
         
@@ -432,11 +441,6 @@ Ext.define('Ext.ux.websocket.WebSocket', {
                 }
             });
             
-            Ext.ux.websocket.WebSocket.socketId++;
-            this.socketId = Ext.ux.websocket.WebSocket.socketId;
-            
-            //this.status = this.ws.readyStatus;
-            
         } catch (e) {
             this.throwError(e);
         } 
@@ -447,7 +451,17 @@ Ext.define('Ext.ux.websocket.WebSocket', {
      * @private
      */
     initSocketIO: function () {
-        // TODO
+        try {
+            if (Ext.isEmpty(this.config.url) && (Ext.isEmpty(this.config.host)))
+                throw new Error ('You must define the URL param');
+            
+            // new Socket.IO instance
+            this.ws = new Ext.ux.websocket.SocketIO(this.config, this);
+               
+            
+        } catch (e) {
+            this.throwError(e);
+        } 
     },
     
     /**
@@ -585,7 +599,7 @@ Ext.define('Ext.ux.websocket.WebSocket', {
     /**
      * Handle on socket open event
      * @param {Object} EventListener
-     * @private
+     * @protected
      */
     onSocketOpen: function (event) {
         this.openEvent = new Ext.ux.websocket.event.Open(event);
@@ -596,10 +610,9 @@ Ext.define('Ext.ux.websocket.WebSocket', {
     /**
      * Handle on socket message event
      * @param {Object} MessageEvent
-     * @private
+     * @protected
      */
     onSocketMessage: function (event) {
-        
         this.messageEvent = new Ext.ux.websocket.event.Message(event, this); 
         if (this.hasListener('message'))
             this.fireEvent('message', this.messageEvent );
@@ -608,7 +621,7 @@ Ext.define('Ext.ux.websocket.WebSocket', {
     /**
      * Handle on socket error event
      * @param {Object} EventListener
-     * @private
+     * @protected
      */ 
     onSocketError: function (event) {
         console.log(event);
@@ -623,7 +636,7 @@ Ext.define('Ext.ux.websocket.WebSocket', {
      * Handle on socket close event and pass the CloseEvent Object
      * See <https://developer.mozilla.org/en-US/docs/WebSockets/WebSockets_reference/CloseEvent#Status_codes>
      * @param {Object} CloseEvent Object
-     * @private
+     * @protected
      */
     onSocketClose: function (event) {
 
@@ -642,7 +655,10 @@ Ext.define('Ext.ux.websocket.WebSocket', {
         if (this.debug) 
             throw new Error (error);
         else
-            Ext.Logger.error(error);
+            if (console.error) 
+                console.error(error);
+            else if (console.log)
+                console.log(error);
     },
     
     /**
@@ -673,7 +689,7 @@ Ext.define('Ext.ux.websocket.WebSocket', {
          * @static
          * @readonly
          */
-        has: ('WebSocket' in window) ? true : false,
+        has: ('WebSocket' in window),
         
         /**
          * @property {WebSocket} WebSocket Object
@@ -698,12 +714,12 @@ Ext.define('Ext.ux.websocket.WebSocket', {
         },
         
         /**
-         * Request identifier
-         * @property {Number} socketId
+         * Socket instance counter
+         * @property {Number} counter
          * @static
          * @readonly
          */
-        socketId: 0,
+        counter: 0,
         
         /**
          * Parse URI and returns a Object

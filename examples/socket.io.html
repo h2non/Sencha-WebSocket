@@ -29,39 +29,20 @@
                 // local socket example
                 var socket = Ext.ux.websocket.WebSocket.create({
                     server: 'socket.io',
-                    url: 'ws://localhost:8080/',
+                    url: 'http://localhost:8080/',
                     options: {
                         
                     },
                     listeners: {
-                        open: function () {
-                            console.log('The socket is open!');
-                            socket.send({ sample: 'This is a sample data string' });                       
+                        connect: function () {
+                            console.log('Socket.IO is connected');
+                            this.send({ sample: 'This is a sample data string' });    
                         },
                         message: function (event) {
                             document.write('Data received -> ' + event.getData() + '<br>');
                         },
                         close: function (event) {
                             console.log('Socket closed: ' + event.getCode() + ' -> ' + event.getReason());
-                        }
-                    }
-                });
-                
-                // invalid websocket example
-                var socket2 = Ext.ux.websocket.WebSocket.create({
-                    url: 'ws://google.es:80/',
-                    listeners: {
-                        open: function (event) {
-                            console.log('The socket is open!');
-                            event.getSocket().send({ sample: 'This is a sample data string' });
-                        },
-                        error: function () {
-                        },
-                        message: function (event) {
-                            document.write('Data received -> ' + event.getData() + '<br>');
-                        },
-                        close: function (event) {
-                            console.log(event);
                         }
                     }
                 });

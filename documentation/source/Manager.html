@@ -212,11 +212,9 @@ Ext.define ('Ext.ux.websocket.Manager', {
      * @param {Ext.ux.websocket.WebSocket} websocket The websocket to close
      */
     close: function (websocket) {
-        var me = this;
-
-        if (me.hashMap.containsKey ( websocket.getUrl() )) {
-            me.hashMap.get( websocket.getUrl() ).close ();
-            me.unregister ( websocket);
+        if (this.hashMap.containsKey ( websocket.getUrl() )) {
+            this.hashMap.get( websocket.getUrl() ).close ();
+            this.unregister ( websocket);
         }
     } ,
 
@@ -224,11 +222,9 @@ Ext.define ('Ext.ux.websocket.Manager', {
 </span>     * Closes any registered websocket
      */
     closeAll: function () {
-        var me = this;
-
-        me.hashMap.each (function (url, websocket, len) {
+        this.hashMap.each (function (url, websocket, len) {
             websocket.close ();
-            me.unregister (websocket);
+            this.unregister (websocket);
         });
     }
 });</pre>

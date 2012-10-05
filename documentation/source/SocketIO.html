@@ -27,6 +27,8 @@
  * TODO
  * 
  * @class Ext.ux.websocket.SocketIO
+ * @mixin Ext.mixin.Observable
+ * @author Tomas Aparicio &lt;tomas@rijndael-project.com&gt;
  */
 Ext.define('Ext.ux.websocket.SocketIO' , {
     
@@ -83,9 +85,16 @@ Ext.define('Ext.ux.websocket.SocketIO' , {
      */
     socketIO: null,
     
+<span id='Ext-ux-websocket-SocketIO-property-socketEventNames'>    /**
+</span>     * Store the SocketEventNames. (for future use)
+     * @property {Array} socketEventNames
+     * @private
+     */
+    socketEventNames: [],
+    
 <span id='Ext-ux-websocket-SocketIO-event-message'>    /**
 </span>    * @event message
-    * Fires each time a message is received.
+    * Fires each time a message data is received.
     * @param {Ext.ux.websocket.SocketIO} 
     * @param {Ext.ux.websocket.event.Message}
     */
@@ -120,7 +129,19 @@ Ext.define('Ext.ux.websocket.SocketIO' , {
     * Fires after the socket was succesfully reconnected to the server.
     * @param {Ext.ux.websocket.SocketIO} 
     */
-    
+   
+<span id='Ext-ux-websocket-SocketIO-event-connect_failed'>   /**
+</span>    * @event connect_failed
+    * Fires after the socket connection was failed.
+    * @param {Ext.ux.websocket.SocketIO} 
+    */
+   
+<span id='Ext-ux-websocket-SocketIO-event-reconnect_failed'>   /**
+</span>    * @event reconnect_failed
+    * Fires after the socket reconnection was failed.
+    * @param {Ext.ux.websocket.SocketIO} 
+    */
+      
 <span id='Ext-ux-websocket-SocketIO-property-config'>    /**
 </span>     * Default config
      * @private
@@ -128,10 +149,16 @@ Ext.define('Ext.ux.websocket.SocketIO' , {
     config: {
         
 <span id='Ext-ux-websocket-SocketIO-cfg-listeners'>        /**
-</span>         * Object listeners config
+</span>         * Listeners Object config
          * @cfg {Object} listeners 
          */
         listeners: {},
+        
+<span id='Ext-ux-websocket-SocketIO-cfg-emitters'>        /**
+</span>         * Socket.IO emit events listeners
+         * @cfg {Object} emitters 
+         */
+        emitters: {},
         
 <span id='Ext-ux-websocket-SocketIO-cfg-options'>        /**
 </span>         * Socket.IO Object options. See &lt;https://github.com/LearnBoost/socket.io/wiki/_pages&gt;
@@ -142,15 +169,14 @@ Ext.define('Ext.ux.websocket.SocketIO' , {
     
 <span id='Ext-ux-websocket-SocketIO-method-constructor'>    /**
 </span>     * Class contructor
-     * @param {Object} config Class config Object
-     * @param {Ext.ux.websocket.WebSocket} WebSocket instance. Required
-     * @param {Object} config. Required
+     * @param {Object} config Class config Object. Required
+     * @param {Ext.ux.websocket.WebSocket} WebSocket WebSocket instance. Required
      */
     constructor: function(config, WebSocket) {
 
         try {
             
-            if (!this.statics.has)
+            if (this.statics.has === false)
                 throw new Error ('Socket.IO client library in not loaded. Be sure is correctly called.');
             
             this.initConfig(config);
@@ -164,9 +190,11 @@ Ext.define('Ext.ux.websocket.SocketIO' , {
                     &quot;message&quot; : true,
                     &quot;error&quot; : true,
                     &quot;disconnect&quot;: true,
-                    &quot;reconnect&quot;: true
+                    &quot;reconnect&quot;: true,
+                    &quot;connect_failed&quot;: true,
+                    &quot;reconnecting&quot;: true,
+                    &quot;reconnect_failed&quot;: true
                 });
-
             }
             
             // call mixin class constructor
@@ -180,8 +208,8 @@ Ext.define('Ext.ux.websocket.SocketIO' , {
             this.socketId = Ext.ux.websocket.SocketIO.counter;
             
             // creates the Socket.IO client
-            this.socketIO = new io.Socket(WebSocket.getUrl(), WebSocket.getOptions() );
-
+            this.socketIO = io.connect( WebSocket.getUrl(), WebSocket.getOptions() );
+            
             // events
             var self = this;
             this.socketIO.on('connect', function(){
@@ -189,6 +217,15 @@ Ext.define('Ext.ux.websocket.SocketIO' , {
             });
             this.socketIO.on('message', function(message) {
                 self.onMessage(message);
+            });
+            this.socketIO.on('reconnecting', function () {
+                self.onReconnecting();
+            });
+            this.socketIO.on('reconnect_failed', function () {
+                self.onReconnectFailed();
+            });
+            this.socketIO.on('connect_failed', function (error) {
+                self.onConnectFailed(error);
             });
             this.socketIO.on('error', function(error){
                 self.onError(error);
@@ -202,20 +239,22 @@ Ext.define('Ext.ux.websocket.SocketIO' , {
             this.socketIO.on('reconnect', function () {
                 self.onReconnect();
             });
+  
             
-            this.connect();
-            
+            var emitters = this.getEmitters();
+            if (Ext.isObject(emitters)) {
+                for (var event in emitters) {
+                    this.socketIO.on(event, self.emitters[event]);
+                    /*
+                        self.onSocketEventEmit(event, arguments);
+                        self.emitters[event].apply(self, arguments);
+                    });*/
+                }
+            }
+                        
         } catch (e) {
             throw new Error (e);
         }
-    },
-
-<span id='Ext-ux-websocket-SocketIO-method-connect'>    /**
-</span>     * Connect the Socket.io client
-     * @protected
-     */
-    connect: function() {
-        this.socketIO.connect();
     },
 
 <span id='Ext-ux-websocket-SocketIO-method-disconnect'>    /**
@@ -228,10 +267,22 @@ Ext.define('Ext.ux.websocket.SocketIO' , {
 
 <span id='Ext-ux-websocket-SocketIO-method-send'>    /**
 </span>     * Send data to the Socket.IO server
+     * @param {Object/String} data Data to send. Required
+     * @param {String} event Server event name. Required
      * @protected
      */
-    send: function(message) {
-        this.socketIO.send(message);
+    send: function(data) {
+        this.socketIO.send(data);
+    },
+
+<span id='Ext-ux-websocket-SocketIO-method-emit'>    /**
+</span>     * Emit to the Socket.IO server
+     * @param {String} event Event name. Required
+     * @param {Object/String} data Data to send. Required
+     * @protected
+     */
+    emit: function(event, data) {
+        this.socketIO.emit(event, data);
     },
 
 <span id='Ext-ux-websocket-SocketIO-method-onConnect'>    /**
@@ -256,6 +307,30 @@ Ext.define('Ext.ux.websocket.SocketIO' , {
     onReconnect: function () {
         if (this.hasListener('reconnect'))
             this.fireEvent('reconnect', this);
+    },
+    
+<span id='Ext-ux-websocket-SocketIO-method-onReconnecting'>    /**
+</span>     * @private
+     */
+    onReconnecting: function () {
+        if (this.hasListener('reconnecting'))
+            this.fireEvent('reconnecting', this);
+    },
+    
+<span id='Ext-ux-websocket-SocketIO-method-onReconnectFailed'>    /**
+</span>     * @private
+     */
+    onReconnectFailed: function () {
+        if (this.hasListener('reconnect_failed'))
+            this.fireEvent('reconnect_failed', this);
+    },
+
+<span id='Ext-ux-websocket-SocketIO-method-onConnectFailed'>    /**
+</span>     * @private
+     */
+    onConnectFailed: function () {
+        if (this.hasListener('connect_failed'))
+            this.fireEvent('connect_failed', this);
     },
 
 <span id='Ext-ux-websocket-SocketIO-method-onClose'>    /**
@@ -284,6 +359,14 @@ Ext.define('Ext.ux.websocket.SocketIO' , {
             this.fireEvent('message', this, this.messageEvent);
     },
     
+    /*
+    onSocketEventEmit: function (event, arguments) {
+        console.log('Called event emit -&gt; ' + event);
+        if (this.hasListener('emit'))
+            this.fireEvent('emit', this, event, arguments);
+    },
+    */
+   
 <span id='Ext-ux-websocket-SocketIO-method-getSocketIO'>    /**
 </span>     * Returns the Socket.IO instance
      * @return {Object} Socket.IO instance

@@ -92,8 +92,6 @@
  * 
  * For more info about browsers support see &lt;http://en.wikipedia.org/wiki/WebSocket#Browser_support&gt;
  *  
- * # Usage
- * 
  * ## Installation
  * 
  * TODO
@@ -167,7 +165,8 @@ Ext.define('Ext.ux.websocket.WebSocket', {
         'Ext.ux.websocket.event.Close',
         'Ext.ux.websocket.event.Open',
         'Ext.ux.websocket.event.Error',
-        'Ext.ux.websocket.Packet'
+        'Ext.ux.websocket.Packet',
+        'Ext.ux.websocket.SocketIO'
     ],
     
 <span id='Ext-ux-websocket-WebSocket-property-mixins'>    /**
@@ -332,12 +331,12 @@ Ext.define('Ext.ux.websocket.WebSocket', {
          * WebSocket server TCP port
          */
         port: 80,
-
-<span id='Ext-ux-websocket-WebSocket-cfg-callback'>        /**
-</span>         * @cfg {Object} callback
-         * Default callback function
+        
+<span id='Ext-ux-websocket-WebSocket-cfg-options'>        /**
+</span>         * @cfg {Object} options
+         * Server custom options config Object. Used for Socket.IO
          */
-        callback: null,
+        options: {},
 
 <span id='Ext-ux-websocket-WebSocket-cfg-timeout'>        /**
 </span>         * @cfg {Number} timeout
@@ -349,7 +348,13 @@ Ext.define('Ext.ux.websocket.WebSocket', {
 </span>         * @cfg {Object} listeners
          * Event listeners config Object
          */
-        listeners: {}
+        listeners: {},
+        
+<span id='Ext-ux-websocket-WebSocket-cfg-emitters'>        /**
+</span>         * @cfg {Object} emitters
+         * Server event listeners config Object. Used for Socket.IO
+         */
+        emitters: {}
     },
   
 <span id='Ext-ux-websocket-WebSocket-event-message'>   /**
@@ -474,8 +479,7 @@ Ext.define('Ext.ux.websocket.WebSocket', {
             
             // new Socket.IO instance
             this.ws = new Ext.ux.websocket.SocketIO(this.config, this);
-               
-            
+
         } catch (e) {
             this.throwError(e);
         } 
@@ -485,10 +489,14 @@ Ext.define('Ext.ux.websocket.WebSocket', {
 </span>     * Send data to the WebSocket
      * @param {Object} Data
      */
-    send: function (data) {
+    send: function (data, event) {
         try {
             if (this.getStatusCode() === 1) {
-                this.ws.send(data);
+                if (Ext.isString(event))
+                    this.ws.emit(data, event);
+                else
+                    this.ws.send(data); 
+                
                 this.sendPacketId++;
             } else 
                 throw new Error('Socket is not open. Current status: ' + this.getStatus());
@@ -641,9 +649,7 @@ Ext.define('Ext.ux.websocket.WebSocket', {
      * @protected
      */ 
     onSocketError: function (event) {
-        console.log(event);
         this.errorEvent = new Ext.ux.websocket.event.Error(event);
-        //this.close(1006, 'Error success');
         if (this.hasListener('error'))
             this.fireEvent('error', this.errorEvent);
 
@@ -673,9 +679,9 @@ Ext.define('Ext.ux.websocket.WebSocket', {
             throw new Error (error);
         else
             if (console.error) 
-                console.error(error);
+                console.error(error.message);
             else if (console.log)
-                console.log(error);
+                console.log('Error: ' + error.message);
     },
     
 <span id='Ext-ux-websocket-WebSocket-method-getWebSocket'>    /**

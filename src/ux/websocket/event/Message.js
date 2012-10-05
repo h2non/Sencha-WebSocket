@@ -53,7 +53,7 @@ Ext.define('Ext.ux.websocket.event.Message', {
         Ext.ux.websocket.event.Message.eventId++;
 
         this.initConfig({
-            data: MessageEvent.data,
+            data: MessageEvent.data || MessageEvent,
             WebSocket: WebSocket,
             timestamp: MessageEvent.timestamp || new Date().getTime(),
             event: MessageEvent,

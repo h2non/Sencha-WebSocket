@@ -22,6 +22,7 @@ Ext.require([
     'Ext.ux.websocket.event.Error',
     'Ext.ux.websocket.event.Open',
     'Ext.ux.websocket.Packet',
+    'Ext.ux.websocket.SocketIO',
     'Ext.ux.websocket.Manager',
     'Ext.ux.websocket.WebSocket'
 ]);

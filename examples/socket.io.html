@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <!-- Sencha Touch 2.1.0 -->
-        <!--<script src="http://dev.sencha.com/deploy/sencha-touch-2.1.0-b3/sencha-touch-all.js"></script>-->
+        <!--<script src="http://dev.sencha.com/deploy/sencha-touch-2.1.0-rc1/sencha-touch-all.js"></script>-->
         
         <!-- Sencha Touch 2.0.1 -->
         <!--<script src="http://dev.sencha.com/deploy/sencha-touch-2.0.1/sencha-touch-all.js"></script>-->
@@ -30,16 +30,25 @@
                 var socket = Ext.ux.websocket.WebSocket.create({
                     server: 'socket.io',
                     url: 'http://localhost:8080/',
-                    options: {
-                        
+                    debug: true,
+                    emitters: { 
+                        news: function (data) {
+                            document.write('News -> ' + data + '<br>');
+                        },
+                        message: function (data) {
+                            document.write('Message -> ' + data + '<br>');
+                        }
                     },
                     listeners: {
                         connect: function () {
                             console.log('Socket.IO is connected');
-                            this.send({ sample: 'This is a sample data string' });    
+                            
+                            setInterval(function (me) {
+                                me.send({ sample: 'This is a sample data string' });  
+                            }, 3000, this);
                         },
-                        message: function (event) {
-                            document.write('Data received -> ' + event.getData() + '<br>');
+                        message: function (event, message, data) {
+                            console.log('Message event: ' + message.getData());
                         },
                         close: function (event) {
                             console.log('Socket closed: ' + event.getCode() + ' -> ' + event.getReason());

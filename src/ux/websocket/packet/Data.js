@@ -19,6 +19,7 @@ Ext.define('Ext.ux.websocket.packet.Data', {
         
         type: 'data'
         
+        
     },
     
     // todo

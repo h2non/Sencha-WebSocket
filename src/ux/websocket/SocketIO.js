@@ -6,9 +6,7 @@
  * <script type="text/javascript" src="lib/socket.io.js"></script>
  * 
  * For more information about Socket.IO, see <http://socket.io/#how-to-use>
- * 
- * TODO
- * 
+ *  
  * @class Ext.ux.websocket.SocketIO
  * @mixin Ext.mixin.Observable
  * @author Tomas Aparicio <tomas@rijndael-project.com>
@@ -160,7 +158,7 @@ Ext.define('Ext.ux.websocket.SocketIO' , {
         try {
             
             if (this.statics.has === false)
-                throw new Error ('Socket.IO client library in not loaded. Be sure is correctly called.');
+                throw new Error ('Socket.IO client library in not loaded. ');
             
             this.initConfig(config);
             
@@ -228,10 +226,6 @@ Ext.define('Ext.ux.websocket.SocketIO' , {
             if (Ext.isObject(emitters)) {
                 for (var event in emitters) {
                     this.socketIO.on(event, self.emitters[event]);
-                    /*
-                        self.onSocketEventEmit(event, arguments);
-                        self.emitters[event].apply(self, arguments);
-                    });*/
                 }
             }
                         

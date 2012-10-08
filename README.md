@@ -40,7 +40,7 @@ More information: <http://en.wikipedia.org/wiki/WebSocket>
 ### WebSocket JavaScript API specification 
    
 The current implementation is based on the W3C JavaScript API specification (dated 09.20.2012).
-Note WebSocket protocol is under continuous development and improvement, so this means is still experimental.
+Note WebSocket protocol is under continuous development and improvement, so that means is still experimental.
 
 See <http://www.w3.org/TR/2012/CR-websockets-20120920/> 
 
@@ -72,10 +72,6 @@ In other words, is supported all Ext Core 4.x based-frameworks
 - Internet Explorer >= 10
 
 For more info about browsers support see <http://en.wikipedia.org/wiki/WebSocket#Browser_support>
- 
-## Installation
-
-TODO
 
 ## How to use
 

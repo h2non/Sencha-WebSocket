@@ -1,69 +1,164 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <title>Sencha WebSocket - Library Documentation (0.1.1 beta)</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <meta name="fragment" content="!">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Sencha-websocket by h2non</title>
 
-  <link rel="shortcut icon" type="image/ico" href="favicon.ico" />
-  <link rel="stylesheet" href="resources/css/app.css" type="text/css" />
-  <link rel="stylesheet" href="resources/prettify/prettify.css" type="text/css" />
-  <script type="text/javascript">
-  (function(){
-    var protocol = (document.location.protocol === "https:") ? "https:" : "http:";
-    document.write("<link href='"+protocol+"//fonts.googleapis.com/css?family=Exo' rel='stylesheet' type='text/css' />");
-  })();
-  </script>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-  <script type="text/javascript" src="extjs/ext-all.js"></script>
-  <script type="text/javascript" src="data.js"></script>
-  <script type="text/javascript" src="app.js"></script>
-  <script type="text/javascript" src="resources/prettify/prettify.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Sencha-websocket</h1>
+        <p>A WebSocket client extension library for Sencha JavaScript frameworks</p>
+        <p class="view"><a href="https://github.com/h2non/Sencha-WebSocket">View the Project on GitHub <small>h2non/Sencha-WebSocket</small></a></p>
+        <ul>
+          <li><a href="https://github.com/h2non/Sencha-WebSocket/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/h2non/Sencha-WebSocket/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/h2non/Sencha-WebSocket">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Sencha WebSocket</h1>
 
-  
+<p>Sencha WebSocket is a WebSocket library for Sencha JavaScript frameworks.</p>
 
-</head>
-<body id="ext-body">
+<p>It provides a lot of functionalities, extensible event-handling, full integration with Sencha core framework, abstraction from JavaScript native API and more...</p>
 
-  <div id="loading"><span class="title"></span><span class="logo"></span></div>
+<h2>What is WebSocket?</h2>
 
-  <div id="header-content"><strong>Sencha WebSocket </strong>Library Documentation (0.1.1 beta)</div>
-  
-          <div id='categories-content' style='display:none'>
-            <div class='section'>
-<h1>Ext</h1>
-<div class='left-column'>
-<h3>ux</h3>
-<ul class='links'>
-<li><a href="#!/api/Ext.ux.websocket.Loader" rel="Ext.ux.websocket.Loader" class="docClass">Ext.ux.websocket.Loader</a></li>
-<li><a href="#!/api/Ext.ux.websocket.Manager" rel="Ext.ux.websocket.Manager" class="docClass">Ext.ux.websocket.Manager</a></li>
-<li><a href="#!/api/Ext.ux.websocket.Packet" rel="Ext.ux.websocket.Packet" class="docClass">Ext.ux.websocket.Packet</a></li>
-<li><a href="#!/api/Ext.ux.websocket.SocketIO" rel="Ext.ux.websocket.SocketIO" class="docClass">Ext.ux.websocket.SocketIO</a></li>
-<li><a href="#!/api/Ext.ux.websocket.Version" rel="Ext.ux.websocket.Version" class="docClass">Ext.ux.websocket.Version</a></li>
-<li><a href="#!/api/Ext.ux.websocket.WebSocket" rel="Ext.ux.websocket.WebSocket" class="docClass">Ext.ux.websocket.WebSocket</a></li>
-<li><a href="#!/api/Ext.ux.websocket.event.Close" rel="Ext.ux.websocket.event.Close" class="docClass">Ext.ux.websocket.event.Close</a></li>
-<li><a href="#!/api/Ext.ux.websocket.event.Error" rel="Ext.ux.websocket.event.Error" class="docClass">Ext.ux.websocket.event.Error</a></li>
-<li><a href="#!/api/Ext.ux.websocket.event.Message" rel="Ext.ux.websocket.event.Message" class="docClass">Ext.ux.websocket.event.Message</a></li>
-<li><a href="#!/api/Ext.ux.websocket.event.Open" rel="Ext.ux.websocket.event.Open" class="docClass">Ext.ux.websocket.event.Open</a></li>
-<li><a href="#!/api/Ext.ux.websocket.packet.Broadcast" rel="Ext.ux.websocket.packet.Broadcast" class="docClass">Ext.ux.websocket.packet.Broadcast</a></li>
-<li><a href="#!/api/Ext.ux.websocket.packet.Data" rel="Ext.ux.websocket.packet.Data" class="docClass">Ext.ux.websocket.packet.Data</a></li>
-<li><a href="#!/api/Ext.ux.websocket.packet.Error" rel="Ext.ux.websocket.packet.Error" class="docClass">Ext.ux.websocket.packet.Error</a></li>
-<li><a href="#!/api/Ext.ux.websocket.packet.Event" rel="Ext.ux.websocket.packet.Event" class="docClass">Ext.ux.websocket.packet.Event</a></li>
-</ul>
-</div>
-<div class='middle-column'>
-</div>
-<div class='right-column'>
-</div>
-<div style='clear:both'></div>
-</div>
-        </div>
+<p>WebSocket is a web technology providing for bi-directional, full-duplex communications channels over a single TCP connection. 
+WebSocket is designed to be implemented in web browsers and web servers, but it can be used by any client or server application. 
+The WebSocket protocol is an independent TCP-based protocol. Its only relationship to HTTP is that its handshake is interpreted by HTTP servers as an Upgrade request.
+The WebSocket protocol makes possible more interaction between a browser and a web site, facilitating live content and the creation of real-time applications.</p>
 
-  
-  <div id='footer-content' style='display: none'>Library Documentation v0.1.1 Beta</div>
+<p>More information: <a href="http://en.wikipedia.org/wiki/WebSocket">http://en.wikipedia.org/wiki/WebSocket</a></p>
 
-  
+<h2>Features</h2>
 
-</body>
+<ul>
+<li>Abstraction from native JavaScript API</li>
+<li>Full integration with the Sencha core framework (see frameworks supported)</li>
+<li>Complete and extensible event-handling support</li>
+<li>General improves for better WebSocket API management</li>
+<li>Support for custom JSON-based packets</li>
+<li>Error handling</li>
+<li>Standard error messages</li>
+<li>Debugging</li>
+<li>Easy-to-use</li>
+<li>Well documented</li>
+</ul><h3>TODO</h3>
+
+<ul>
+<li>Buffer and JSON-based packets support</li>
+<li>Limits/performance</li>
+<li>Strong error handling</li>
+<li>Support third-party application-level WebSocket-based protocols (such as WebSocket Application Messaging Protocol)</li>
+<li>Real apps examples</li>
+</ul><h3>WebSocket JavaScript API specification</h3>
+
+<p>The current implementation is based on the W3C JavaScript API specification (dated 09.20.2012).
+Note WebSocket protocol is under continuous development and improvement, so this means is still experimental.</p>
+
+<p>See <a href="http://www.w3.org/TR/2012/CR-websockets-20120920/">http://www.w3.org/TR/2012/CR-websockets-20120920/</a> </p>
+
+<p>See <a href="https://developer.mozilla.org/en-US/docs/WebSockets/WebSockets_reference/WebSocket">https://developer.mozilla.org/en-US/docs/WebSockets/WebSockets_reference/WebSocket</a></p>
+
+<p>The WebSocket procotol is standarized the IETF. See <a href="http://tools.ietf.org/html/rfc6455">http://tools.ietf.org/html/rfc6455</a></p>
+
+<h3>Sencha frameworks support</h3>
+
+<ul>
+<li>ExtJS 4.0.x</li>
+<li>ExtJS 4.1.x</li>
+<li>Sencha Touch 2.0.x</li>
+<li>Sencha Touch 2.1.x</li>
+</ul><p>In other words, is supported all Ext Core 4.x based-frameworks</p>
+
+<h2>Version</h2>
+
+<ul>
+<li>Current release: 0.1.1 Beta (under development!)</li>
+</ul><p><code>Take a look at the [CHANGELOG][http://localhost/#CHANGELOG.md] file for more information about versioning</code></p>
+
+<h2>Browser support (RFC 6455 specification)</h2>
+
+<ul>
+<li>Mozilla Firefox &gt;= 11 | &gt;= 6</li>
+<li>Google Chrome &gt;= 16</li>
+<li>Opera &gt;= 12.50</li>
+<li>Safari &gt;= 6</li>
+<li>Internet Explorer &gt;= 10</li>
+</ul><p>For more info about browsers support see <a href="http://en.wikipedia.org/wiki/WebSocket#Browser_support">http://en.wikipedia.org/wiki/WebSocket#Browser_support</a></p>
+
+<h2>Installation</h2>
+
+<p>TODO</p>
+
+<h2>How to use</h2>
+
+<p>TODO</p>
+
+<h2>Server API</h2>
+
+<p>TODO</p>
+
+<h2>Library packet</h2>
+
+<p>TODO</p>
+
+<h2>Examples</h2>
+
+<p>TODO</p>
+
+<h1>Documentation</h1>
+
+<p>Library API documentation:</p>
+
+<p><a href="http://h2non.github.com/Sencha-WebSocket/">http://h2non.github.com/Sencha-WebSocket/</a></p>
+
+<h1>Author</h1>
+
+<ul>
+<li>Tomas Aparicio <a href="mailto:tomas@rijndael-project.com">tomas@rijndael-project.com</a>
+</li>
+</ul><h1>Issues</h1>
+
+<p>Feel free to report any issue you experiment via Github <a href="https://github.com/h2non/Sencha-WebSocket">https://github.com/h2non/Sencha-WebSocket</a></p>
+
+<p>Any <a href="mailto:tomas@rijndael-project.com">feedback</a> is also welcome :)</p>
+
+<h1>License</h1>
+
+<p>(C) 2012 Tomas Aparicio</p>
+
+<p>This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License
+along with this program.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/h2non">h2non</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
 </html>

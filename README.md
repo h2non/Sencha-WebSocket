@@ -71,32 +71,32 @@ For more info about browsers support see <http://en.wikipedia.org/wiki/WebSocket
 
 A list of some WebSocket servers
     
-    - Node.js
-        - Socket.IO Server <https://github.com/learnboost/socket.io>
-        - WebSocket.IO <https://github.com/LearnBoost/websocket.io>
-        - ws <https://github.com/einaros/ws>
-        - WebSocket-Node <https://github.com/Worlize/WebSocket-Node>
-        - SockJS-Node <https://github.com/sockjs/sockjs-node>
-    - Python
-        - Sock-JS Tornado <https://github.com/MrJoes/sockjs-tornado>
-        - pywebsocket <http://code.google.com/p/pywebsocket/>
-    - PHP
-        - Ratchet <http://socketo.me/>
-        - php-websocket <https://github.com/nicokaiser/php-websocket>
-        - PHP WebSocket <http://code.google.com/p/phpwebsocket/>
-    - Ruby
-        - em-websocket <https://github.com/igrigorik/em-websocket>
-        - web-socket-ruby <https://github.com/gimite/web-socket-ruby>
-        - Cramp <http://cramp.in/>
-    - Erlang
-        - erws <https://github.com/marcelog/erws>
-        - sockjs-erlang <https://github.com/sockjs/sockjs-erlang>
-    - Java
-        - jWebSocket <http://jwebsocket.org/>
-    - C++
-        - WebSocket++ <https://github.com/zaphoyd/websocketpp>
-    - Standalone
-        - Netty <https://netty.io/>
+- Node.js
+    - Socket.IO Server <https://github.com/learnboost/socket.io>
+    - WebSocket.IO <https://github.com/LearnBoost/websocket.io>
+    - ws <https://github.com/einaros/ws>
+    - WebSocket-Node <https://github.com/Worlize/WebSocket-Node>
+    - SockJS-Node <https://github.com/sockjs/sockjs-node>
+- Python
+    - Sock-JS Tornado <https://github.com/MrJoes/sockjs-tornado>
+    - pywebsocket <http://code.google.com/p/pywebsocket/>
+- PHP
+    - Ratchet <http://socketo.me/>
+    - php-websocket <https://github.com/nicokaiser/php-websocket>
+    - PHP WebSocket <http://code.google.com/p/phpwebsocket/>
+- Ruby
+    - em-websocket <https://github.com/igrigorik/em-websocket>
+    - web-socket-ruby <https://github.com/gimite/web-socket-ruby>
+    - Cramp <http://cramp.in/>
+- Erlang
+    - erws <https://github.com/marcelog/erws>
+    - sockjs-erlang <https://github.com/sockjs/sockjs-erlang>
+- Java
+    - jWebSocket <http://jwebsocket.org/>
+- C++
+    - WebSocket++ <https://github.com/zaphoyd/websocketpp>
+- Standalone
+    - Netty <https://netty.io/>
 
 
 ## Library packet

@@ -150,7 +150,6 @@ A simple way to create a stardard JSON-based packets.
         <div>Sencha WebSocket library example</div>
     </body>
 </html> 
-
 ``` 
 
 ### Socket.IO example
@@ -213,32 +212,29 @@ A simple way to create a stardard JSON-based packets.
         <div>Sencha WebSocket library example</div>
     </body>
 </html> 
-
-
 ```
 
-# Documentation
+## Documentation
 
-Current library API documentation:
+Take a look at the latest library API documentation:
 
 <http://h2non.github.com/Sencha-WebSocket/docs/0.1.2b/>
 
 ## Changelog
 
-- 0.1.1 beta
-    `First release, not completed yet and under active library designing`
+- `0.1.1 beta` First release, not completed yet and under active library designing
 
-# Author
+## Author
 
 - Tomas Aparicio <tomas@rijndael-project.com>
 
-# Issues 
+## Issues 
 
 Feel free to report any issue you experiment via Github <https://github.com/h2non/Sencha-WebSocket>
 
 Any [feedback](mailto:tomas@rijndael-project.com) is also welcome :)
 
-# License
+## License
 
 (C) 2012 Tomas Aparicio
  

@@ -73,27 +73,160 @@ In other words, is supported all Ext Core 4.x based-frameworks
 
 For more info about browsers support see <http://en.wikipedia.org/wiki/WebSocket#Browser_support>
 
-## How to use
+## WebSocket servers
 
-TODO
-
-## Server API
-
-TODO
+A list of some WebSocket servers
+    
+    - Node.js
+        - Socket.IO Server <https://github.com/learnboost/socket.io>
+        - WebSocket.IO <https://github.com/LearnBoost/websocket.io>
+        - ws <https://github.com/einaros/ws>
+        - WebSocket-Node <https://github.com/Worlize/WebSocket-Node>
+        - SockJS-Node <https://github.com/sockjs/sockjs-node>
+    - Python
+        - Sock-JS Tornado <https://github.com/MrJoes/sockjs-tornado>
+        - pywebsocket <http://code.google.com/p/pywebsocket/>
+    - PHP
+        - Ratchet <http://socketo.me/>
+        - php-websocket <https://github.com/nicokaiser/php-websocket>
+        - PHP WebSocket <http://code.google.com/p/phpwebsocket/>
+    - Ruby
+        - em-websocket <https://github.com/igrigorik/em-websocket>
+        - web-socket-ruby <https://github.com/gimite/web-socket-ruby>
+        - Cramp <http://cramp.in/>
+    - Erlang
+        - erws <https://github.com/marcelog/erws>
+        - sockjs-erlang <https://github.com/sockjs/sockjs-erlang>
+    - Java
+        - jWebSocket <http://jwebsocket.org/>
+    - C++
+        - WebSocket++ <https://github.com/zaphoyd/websocketpp>
+    - Standalone
+        - Netty <https://netty.io/>
 
 ## Library packet
 
-TODO
+A simple way to create a stardard JSON-based packets. 
+
 
 ## Examples
 
-TODO
+### Basic WebSocket client example
+
+```javascript
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sencha WebSocket Examples - Basic</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <!-- Sencha ExtJS 4.1.0 -->
+        <script src="http://dev.sencha.com/deploy/ext-4.1.0-gpl/ext-all-debug.js"></script>
+       
+        <!-- WebSocket library -->
+        <script src="/src/ux/websocket/Loader.js"></script>
+
+        <script type="text/javascript">
+            
+            Ext.onReady(function () {
+                
+                // local socket example
+                var socket = Ext.ux.websocket.WebSocket.create({
+                    url: 'ws://localhost:8080/', //'ws://localhost:8080/socket.io/1/websocket/',
+                    listeners: {
+                        open: function () {
+                            console.log('The socket is open!');
+                            socket.send({ sample: 'This is a sample data string' });                       
+                        },
+                        message: function (event) {
+                            document.write('Data received -> ' + event.getData() + '<br>');
+                        },
+                        close: function (event) {
+                            console.log('Socket closed: ' + event.getCode() + ' -> ' + event.getReason());
+                        }
+                    }
+                });
+
+            });
+        </script>
+    </head>
+    <body>
+        <div>Sencha WebSocket library example</div>
+    </body>
+</html> 
+
+``` 
+
+### Socket.IO example
+
+```javascript 
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sencha WebSocket Examples - Socket.IO</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <!-- Sencha ExtJS 4.1.0 -->
+        <script src="http://dev.sencha.com/deploy/ext-4.1.0-gpl/ext-all-debug.js"></script>
+       
+        <!-- WebSocket library -->
+        <script src="/src/ux/websocket/Loader.js"></script>
+
+        <!-- Socket.IO client library -->
+        <script src="/lib/socket.io.js"></script>
+        
+        <script type="text/javascript">
+            
+            Ext.onReady(function () {
+                
+                // local socket example
+                var socket = Ext.ux.websocket.WebSocket.create({
+                    server: 'socket.io',
+                    url: 'http://localhost:8080/',
+                    debug: true,
+                    emitters: { 
+                        news: function (data) {
+                            document.write('News -> ' + data + '<br>');
+                        },
+                        message: function (data) {
+                            document.write('Message -> ' + data + '<br>');
+                        }
+                    },
+                    listeners: {
+                        connect: function () {
+                            console.log('Socket.IO is connected');
+                            
+                            setInterval(function (me) {
+                                me.send({ sample: 'This is a sample data string' });  
+                            }, 3000, this);
+                        },
+                        message: function (event, message, data) {
+                            console.log('Message event: ' + message.getData());
+                        },
+                        close: function (event) {
+                            console.log('Socket closed: ' + event.getCode() + ' -> ' + event.getReason());
+                        }
+                    }
+                });
+
+            });
+        </script>
+    </head>
+    <body>
+        <div>Sencha WebSocket library example</div>
+    </body>
+</html> 
+
+
+```
 
 # Documentation
 
-Library API documentation:
+Current library API documentation:
 
-<http://h2non.github.com/Sencha-WebSocket/>
+<http://h2non.github.com/Sencha-WebSocket/docs/0.1.2b/>
 
 # Author
 

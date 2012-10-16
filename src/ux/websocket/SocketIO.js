@@ -1,4 +1,8 @@
 /**
+ * @class Ext.ux.websocket.SocketIO
+ * @mixin Ext.mixin.Observable
+ * @author Tomas Aparicio <tomas@rijndael-project.com>
+ * 
  * A wrapper class for Socket.IO client library. Used internally.
  * 
  * You must add the Socket.IO library at the HTML document, like this:
@@ -6,10 +10,6 @@
  * <script type="text/javascript" src="lib/socket.io.js"></script>
  * 
  * For more information about Socket.IO, see <http://socket.io/#how-to-use>
- *  
- * @class Ext.ux.websocket.SocketIO
- * @mixin Ext.mixin.Observable
- * @author Tomas Aparicio <tomas@rijndael-project.com>
  */
 Ext.define('Ext.ux.websocket.SocketIO' , {
     

@@ -29,7 +29,6 @@
  *     Ext.ux.websocket.Manager.unregister (ws3);
  *     
  */
-
 Ext.define ('Ext.ux.websocket.Manager', {
     
     /**

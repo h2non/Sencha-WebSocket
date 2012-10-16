@@ -3,7 +3,7 @@
  * @mixin Ext.mixin.Observable
  * @author Tomas Aparicio <tomas@rijndael-project.com>
  * 
- * Class to create new  
+ * Class to create a new Sencha WebSocket client  
  * 
  */
 

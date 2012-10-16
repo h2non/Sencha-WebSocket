@@ -108,7 +108,7 @@ A simple way to create a stardard JSON-based packets.
 
 ### Basic WebSocket client example
 
-```javascript
+```html
 
 <!DOCTYPE html>
 <html>
@@ -155,7 +155,7 @@ A simple way to create a stardard JSON-based packets.
 
 ### Socket.IO example
 
-```javascript 
+```html
 
 <!DOCTYPE html>
 <html>

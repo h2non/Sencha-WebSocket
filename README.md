@@ -57,12 +57,6 @@ The WebSocket procotol is standarized the IETF. See <http://tools.ietf.org/html/
 
 In other words, is supported all Ext Core 4.x based-frameworks
 
-## Version
-
-- Current release: 0.1.1 Beta (under development!)
-
-`Take a look at the [CHANGELOG][http://localhost/#CHANGELOG.md] file for more information about versioning`
-
 ## Browser support (RFC 6455 specification)
 
 - Mozilla Firefox >= 11 | >= 6
@@ -228,6 +222,11 @@ A simple way to create a stardard JSON-based packets.
 Current library API documentation:
 
 <http://h2non.github.com/Sencha-WebSocket/docs/0.1.2b/>
+
+## Changelog
+
+- 0.1.1 beta
+    `First release, not completed yet and under active library designing`
 
 # Author
 

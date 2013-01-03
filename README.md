@@ -213,7 +213,7 @@ Take a look at the latest library API documentation:
 
 ## Changelog
 
-- `0.1.1 beta` First release, not completed yet.
+- `0.1.1 beta` First release, not completed yet, work in progress.
 
 ## Author
 

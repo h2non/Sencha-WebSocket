@@ -1,6 +1,3 @@
-
-# CURRENTLY UNDER DEVELOPMENT (ROADMAP), IT'S NOT COMPLETE YET. A FULL BETA RELEASE IS COMING SOON, KEEP IN TOUCH!
-
 # Sencha WebSocket 
  
 Sencha WebSocket is a WebSocket library for Sencha JavaScript frameworks.
@@ -97,12 +94,6 @@ A list of some WebSocket servers
     - WebSocket++ <https://github.com/zaphoyd/websocketpp>
 - Standalone
     - Netty <https://netty.io/>
-
-
-## Library packet
-
-A simple way to create a stardard JSON-based packets. 
-
 
 ## Examples
 
@@ -222,7 +213,7 @@ Take a look at the latest library API documentation:
 
 ## Changelog
 
-- `0.1.1 beta` First release, not completed yet and under active library designing
+- `0.1.1 beta` First release, not completed yet.
 
 ## Author
 
